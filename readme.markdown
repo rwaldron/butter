@@ -15,7 +15,10 @@ Event emitters within the application are subject to change.
 
 TODO: 
   
-  - Timescale scrolling issues
+  - Timescale scrolling issues (currently in development on `timescale` branch)
+  
+  - Remove static popcorn-js/ and replace with git submodule
+      - git://github.com/annasob/popcorn-js.git 0.3
   
   - DRY out and abstract export logic
 
