@@ -711,10 +711,13 @@
         unload: {
           
           video: function() {
+            
+            var $v = $("video");
+          
           
             //  Remove previously created video sources
-            if ( $("video").length ) {
-              $("video").remove();
+            if ( $v.length ) {
+              $v.remove();
             }
 
             $video = $( "<video/>", {
@@ -1087,7 +1090,7 @@
 
           TrackEditor.increment = increment;
           
-          context.font = "10px courier";
+          context.font = "10px monospace";
           context.fillStyle = "#000";
           context.lineWidth = 1;
           
@@ -1219,7 +1222,7 @@
                 start: currentPlayHeadTime,
                 
                 //  
-                end: currentPlayHeadTime + 8
+                end: currentPlayHeadTime + 2
               };
               
               
