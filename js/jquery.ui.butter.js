@@ -561,17 +561,17 @@
 
     },
 
-    _mouseupdown: function( e ) {
+    _mouseupdown: function( event ) {
       
       console.log(event);
       
-      if ( e.type === "mousedown" ) {
+      if ( event.type === "mousedown" ) {
         
         
         this.mouse.down = true;
         
         
-        $.extend( lastMouseDown, { x: e.pageX, y: e.pageY });
+        $.extend( lastMouseDown, { x: event.pageX, y: event.pageY });
         
         
         return;
@@ -579,7 +579,7 @@
       
       
       
-      if ( e.type === "mouseup" ) {
+      if ( event.type === "mouseup" ) {
       
         //console.log("mouseup");
         //this.mouse.mode = auto;
@@ -588,17 +588,17 @@
           
           if ( this.options.mode !== "smartZoom" ) {
             
-            //console.log("lastMouseDown", lastMouseDown, { x: e.pageX, y: e.pageY });
+            //console.log("lastMouseDown", lastMouseDown, { x: event.pageX, y: event.pageY });
             
             //  If mouse hasnt moved, fire edit event (will open edit dialog)
-            if ( lastMouseDown.x === e.pageX ) {
+            if ( lastMouseDown.x === event.pageX ) {
               
-              this.mouse.hovering.editEvent( e );
+              this.mouse.hovering.editEvent( event );
               
             } else {
              
               //  Placeholder for future ondrag
-              //this.mouse.hovering.editEvent( e );
+              //this.mouse.hovering.editEvent( event );
               
             }
           }
@@ -610,20 +610,20 @@
       }
     },
 
-    _hover: function( e ) {
+    _hover: function( event ) {
       
-      //console.log(e);
+      console.log(event);
     
-      if ( e.type === "mouseenter" ) {
+      if ( event.type === "mouseenter" ) {
         
-        //console.log(e, this);
+        console.log(event, this);
         
         this._draw();
         
         return;
       }
       
-      if ( e.type === "mouseleave" ) {
+      if ( event.type === "mouseleave" ) {
         if ( this.mouse.hovering ) {
           this.mouse.hovering.hovered = false;
         }
