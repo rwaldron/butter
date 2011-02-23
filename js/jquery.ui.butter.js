@@ -29,8 +29,8 @@
           defaults: function( c, x, y, w, h ) {
             //  `x` seems to come up as NaN occassionally
 
-            //console.log( c, x, y, w, h );
-            //console.log(isNaN(x));
+            ////  console.log( c, x, y, w, h );
+            ////  console.log(isNaN(x));
             if ( isNaN(x) ) {
               return;
             }      
@@ -143,7 +143,7 @@
 
   function TrackEvent( props, parent ) {
     
-    //console.log("TrackEvent",props, this);
+    ////  console.log("TrackEvent",props, this);
     
     jQuery.extend(this, props);
     
@@ -231,7 +231,7 @@
       this.width = this.element.width();
       this.height = this.element.height();
 
-      //console.log(this.width, this.height);
+      ////  console.log(this.width, this.height);
       jQuery.extend(this, {
         context     : newCanvas( this.width, this.height ),
         scrubBar    : { position: 0, width: 3 },
@@ -319,6 +319,8 @@
     },
    
     _draw: function( thumbLeft, thumbRight ) {
+    
+      ////  console.log( "_draw:thumbLeft, thumbRight", thumbLeft, thumbRight );
       
       jQuery(document).trigger("drawStart.track");
     
@@ -330,9 +332,11 @@
           i = 0, 
           len = this._inView.length, 
           iv;
+          
+     //  //  console.log("_draw:len", len, this._inView );
       
-      grad.addColorStop(0,"#fff");
-      grad.addColorStop(1,"#B6B6B6");
+      grad.addColorStop( 0,"#fff" );
+      grad.addColorStop( 1,"#B6B6B6" );
       //grad.addColorStop(1,"#eee");
       
       
@@ -356,14 +360,14 @@
 
     _timeupdate: function( e ) {
     
-      console.log("timeupdate");    
+      ////  console.log("timeupdate");    
       this._playBar.position = e.currentTarget.currentTime;
       this._draw();
     },
 
     _mousemove: function( e ) {
       
-      //console.log(e);
+      ////  console.log(e);
       
       e = e.originalEvent;
       
@@ -371,6 +375,7 @@
       this.mouse.lastY = this.mouse.y;
       
       
+      //  console.log(global);
       
       var scrollX = (global.scrollX !== null && typeof global.scrollX !== "undefined") ? global.scrollX : global.pageXOffset, 
           scrollY = (global.scrollY !== null && typeof global.scrollY !== "undefined") ? global.scrollY : global.pageYOffset,
@@ -379,18 +384,34 @@
           len = this._inView.length, 
           iv, linkedTracks, j, diff;
       
+      ////  console.log("this.element[0].offsetLeft", this.element[0].offsetLeft);
+      ////  console.log("this.element[0]", this.element[0]);
+      ////  console.log("this.element[0]", { elem: this.element[0].parentNode.scrollLeft });
       
-      this.mouse.x = e.clientX - this.element[0].offsetLeft + scrollX;
+      this.mouse.x = e.clientX - this.element[0].offsetLeft + scrollX + this.element[0].parentNode.scrollLeft;
       this.mouse.y = e.clientY - this.element[0].offsetTop + scrollY;
       
-      //console.log(e.clientX, e.clientY);
-      //console.log(this.mouse.x);
-      //console.log(this.mouse.y);
+      ////  console.log(e.clientX, e.clientY);
+      ////  console.log(this.mouse.x);
+      ////  console.log(this.mouse.y);
       
       thumbLeft = thumbRight = false;
+      
+
         
       if ( !this.mouse.down ) {
+
+        //  console.log("_mousemove:scrollX", scrollX);
+        //  console.log("_mousemove:scrollY", scrollY);
+        //  console.log("_mousemove:thumbLeft, thumbRight", thumbLeft, thumbRight);
+
+        //  console.log("_mousemove:this.mouse", this.mouse);        
+
+        ////  console.log( "_mousemove:!this.mouse.down",  );
+        
+        
         this.mouse.hovering = null;
+      
         for( ; i< len; i++ ) {
           
           iv = this._inView[i];
@@ -439,10 +460,10 @@
           
           } else if ( this.mouse.x >= iv.xl+8 && this.mouse.x <= iv.xr - 8 ) {
           
-            //console.log("this.mouse.x", this.mouse.x);
-            //console.log("iv", iv);
-            //console.log("iv.xl", iv.xl);
-            //console.log("dragset");
+            ////  console.log("this.mouse.x", this.mouse.x);
+            ////  console.log("iv", iv);
+            ////  console.log("iv.xl", iv.xl);
+            ////  console.log("dragset");
             
             this.mouse.mode = drag;
           }
@@ -452,8 +473,8 @@
         
         if ( [ eResize, wResize ].indexOf( this.mouse.mode ) > -1 ) {
           
-          //console.log("dragging handles");
-          //console.log(this.mouse.hovering.xl, this.mouse.hovering.xr);
+          ////  console.log("dragging handles");
+          ////  console.log(this.mouse.hovering.xl, this.mouse.hovering.xr);
           
           var cancelDrag = false;
           
@@ -555,7 +576,7 @@
 
       }
 
-      //console.log( this.mouse.mode, this.mouse.hovering, this.mouse.down );
+      ////  console.log( this.mouse.mode, this.mouse.hovering, this.mouse.down );
 
       this._draw(thumbLeft, thumbRight);
 
@@ -563,7 +584,7 @@
 
     _mouseupdown: function( event ) {
       
-      console.log(event);
+     //  //  console.log( "_mouseupdown", event.type, event );
       
       if ( event.type === "mousedown" ) {
         
@@ -581,14 +602,14 @@
       
       if ( event.type === "mouseup" ) {
       
-        //console.log("mouseup");
+        ////  console.log("mouseup");
         //this.mouse.mode = auto;
         
         if ( this.mouse.hovering && this.mouse.down ) {
           
           if ( this.options.mode !== "smartZoom" ) {
             
-            //console.log("lastMouseDown", lastMouseDown, { x: event.pageX, y: event.pageY });
+            ////  console.log("lastMouseDown", lastMouseDown, { x: event.pageX, y: event.pageY });
             
             //  If mouse hasnt moved, fire edit event (will open edit dialog)
             if ( lastMouseDown.x === event.pageX ) {
@@ -612,11 +633,11 @@
 
     _hover: function( event ) {
       
-      console.log(event);
+    //  //  console.log( "_hover", event.type, event );
     
       if ( event.type === "mouseenter" ) {
         
-        console.log(event, this);
+        ////  console.log(event, this);
         
         this._draw();
         
@@ -624,8 +645,13 @@
       }
       
       if ( event.type === "mouseleave" ) {
+      
         if ( this.mouse.hovering ) {
+        
+         //  //  console.log( "_hover:mouseleave", "this.mouse.hovering", this.mouse.hovering );
+        
           this.mouse.hovering.hovered = false;
+        
         }
         
         document.body.style.cursor="auto";
