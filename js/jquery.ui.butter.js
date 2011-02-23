@@ -35,18 +35,18 @@
               return;
             }      
 
-            //document.body.style.cursor='e-resize';
+            //document.body.style.cursor="e-resize";
             var grad = c.createLinearGradient(0,0,0,h);
-            grad.addColorStop(0,'rgba( 255, 255, 0, 0.3 )');
-            grad.addColorStop(1,'rgba( 255, 255, 0, 0.3 )');
+            grad.addColorStop(0,"rgba( 255, 255, 0, 0.3 )");
+            grad.addColorStop(1,"rgba( 255, 255, 0, 0.3 )");
             c.fillStyle = grad;
 
             c.fillRect(x, 1.5, w, h-1.5);
 
-            c.fillStyle = 'rgba(255,255,255,.125)';
+            c.fillStyle = "rgba(255,255,255,.125)";
             c.fillRect(x, 0, w, h/2);          
             c.lineWidth=0.5;
-            c.fillStyle='#FF0';          
+            c.fillStyle="#FF0";          
             c.fillRect(x, 3, 1, h-5);
             c.fillRect(x+w-1, 3, 1, h-5);
 
@@ -56,15 +56,15 @@
             if ( isNaN(x) ) {
               return;
             }      
-            //document.body.style.cursor='move';
-            c.fillStyle = '#FF0';
+            //document.body.style.cursor="move";
+            c.fillStyle = "#FF0";
             c.fillRect(x, 1.5, w, h-1.5);          
             var grad = c.createLinearGradient(0,0,0,h);
-            grad.addColorStop(0,'rgba(255,255,255,.7)');
-            grad.addColorStop(1,'rgba(0,0,0,.25)');
+            grad.addColorStop(0,"rgba(255,255,255,.7)");
+            grad.addColorStop(1,"rgba(0,0,0,.25)");
             c.fillStyle = grad;
             c.fillRect(x,0, w, h);
-            c.fillStyle='#FF0';
+            c.fillStyle="#FF0";
             c.fillRect(x, 0, 1, h);
             c.fillRect(x+w-1, 0, 1, h);
             c.fillRect(x, h-1.5, w, 2);
@@ -73,17 +73,17 @@
           thumb: {
             left: {
               defaults: function( c, x, y, w, h ) {
-                c.fillStyle = '#880';
+                c.fillStyle = "#880";
                 c.fillRect(x, 0, 8, h);
-                c.fillStyle = '#FF0';
+                c.fillStyle = "#FF0";
                 c.fillRect(x, 0, 1, h);
               }
             },
             right: {
               defaults: function( c, x, y, w, h ) {
-                c.fillStyle = '#880';
+                c.fillStyle = "#880";
                 c.fillRect(x+w-9, 0, 8, h);
-                c.fillStyle = '#FF0';
+                c.fillStyle = "#FF0";
                 c.fillRect(x+w-1, 0, 1, h);
               }
             }
@@ -91,30 +91,30 @@
         },
         zoomEvent: {
           defaults: function( c, x, y, w, h ) {
-            //document.body.style.cursor='e-resize';
+            //document.body.style.cursor="e-resize";
             var grad = c.createLinearGradient(0,0,0,h);
-            grad.addColorStop(0,'rgba( 128, 255, 0, 0.3 )');
-            grad.addColorStop(1,'rgba( 128, 255, 0, 0.3 )');
+            grad.addColorStop(0,"rgba( 128, 255, 0, 0.3 )");
+            grad.addColorStop(1,"rgba( 128, 255, 0, 0.3 )");
             c.fillStyle = grad;
             c.fillRect(x, 1.5, w, h-1.5);
-            c.fillStyle = 'rgba(255,255,255,.125)';
+            c.fillStyle = "rgba(255,255,255,.125)";
             c.fillRect(x, 0, w, h/2);          
             c.lineWidth=0.5;
-            c.fillStyle='#AF0';          
+            c.fillStyle="#AF0";          
             c.fillRect(x, 3, 1, h-5);
             c.fillRect(x+w-1, 3, 1, h-5);
 
           },
           hover: function( c, x, y, w, h ) {
-              //document.body.style.cursor='move';
-              c.fillStyle = '#AF0';
+              //document.body.style.cursor="move";
+              c.fillStyle = "#AF0";
               c.fillRect(x, 1.5, w, h-1.5);          
               var grad = c.createLinearGradient(0,0,0,h);
-              grad.addColorStop(0,'rgba(128,255,0,.7)');
-              grad.addColorStop(1,'rgba(0,0,0,.25)');
+              grad.addColorStop(0,"rgba(128,255,0,.7)");
+              grad.addColorStop(1,"rgba(0,0,0,.25)");
               c.fillStyle = grad;
               c.fillRect(x,0, w, h);
-              c.fillStyle='#AF0';
+              c.fillStyle="#AF0";
               c.fillRect(x, 0, 1, h);
               c.fillRect(x+w-1, 0, 1, h);
               c.fillRect(x, h-1.5, w, 2);
@@ -123,17 +123,17 @@
           thumb: {
             left: {
               defaults: function( c, x, y, w, h ) {
-                c.fillStyle = '#480';
+                c.fillStyle = "#480";
                 c.fillRect(x, 0, 16, h);
-                c.fillStyle = '#AF0';
+                c.fillStyle = "#AF0";
                 c.fillRect(x, 0, 4, h);
               }
             },
             right: {
               defaults: function( c, x, y, w, h ) {
-                c.fillStyle = '#480';
+                c.fillStyle = "#480";
                 c.fillRect(x+w-17, 0, 16, h);
-                c.fillStyle = '#AF0';
+                c.fillStyle = "#AF0";
                 c.fillRect(x+w-4, 0, 4, h);
               }
             }
@@ -175,7 +175,7 @@
 
     //var mouseX = this.parent.mouseX;         
 
-    type = ( this.parent.options.mode === 'smartZoom' ) ? 'zoomEvent' : 'trackEvent';
+    type = ( this.parent.options.mode === "smartZoom" ) ? "zoomEvent" : "trackEvent";
     
     
     if ( this.hovered ) {
@@ -221,10 +221,10 @@
     
       function newCanvas( w, h ) {
         var canvas, context;
-        canvas = document.createElement('canvas');
+        canvas = document.createElement("canvas");
         canvas.width = w;
         canvas.height = h;
-        context = canvas.getContext('2d');
+        context = canvas.getContext("2d");
         return context;
       }
       
@@ -254,7 +254,7 @@
       
       
 
-      if ( this.options.mode === 'smartZoom' ) {
+      if ( this.options.mode === "smartZoom" ) {
         this._inView.push(new TrackEvent({
           inPoint   : 0,
           outPoint  : 100,
@@ -331,9 +331,9 @@
           len = this._inView.length, 
           iv;
       
-      grad.addColorStop(0,'#fff');
-      grad.addColorStop(1,'#B6B6B6');
-      //grad.addColorStop(1,'#eee');
+      grad.addColorStop(0,"#fff");
+      grad.addColorStop(1,"#B6B6B6");
+      //grad.addColorStop(1,"#eee");
       
       
       c.fillStyle = grad;
@@ -372,8 +372,8 @@
       
       
       
-      var scrollX = (global.scrollX !== null && typeof global.scrollX !== 'undefined') ? global.scrollX : global.pageXOffset, 
-          scrollY = (global.scrollY !== null && typeof global.scrollY !== 'undefined') ? global.scrollY : global.pageYOffset,
+      var scrollX = (global.scrollX !== null && typeof global.scrollX !== "undefined") ? global.scrollX : global.pageXOffset, 
+          scrollY = (global.scrollY !== null && typeof global.scrollY !== "undefined") ? global.scrollY : global.pageYOffset,
           thumbLeft, thumbRight, 
           i = 0, 
           len = this._inView.length, 
@@ -404,13 +404,13 @@
             this.mouse.hovering.grabX = this.mouse.x - this.mouse.hovering.xl + 1;
             
             if ( this.mouse.x >= iv.xl && this.mouse.x <= iv.xl + 8 ) {
-              document.body.style.cursor='w-resize';
+              document.body.style.cursor="w-resize";
               thumbLeft = true;
             }else if ( this.mouse.x >= iv.xr-8 && this.mouse.x <= iv.xr ) {
-              document.body.style.cursor='e-resize';
+              document.body.style.cursor="e-resize";
               thumbRight = true;
             }else{
-              document.body.style.cursor='move';
+              document.body.style.cursor="move";
             }
           }else{
             if ( iv.hovered ) {
@@ -422,7 +422,7 @@
         }
         if ( !this.mouse.hovering ) {
           this.mouse.mode = auto;
-          document.body.style.cursor='auto';
+          document.body.style.cursor="auto";
           return;
         }
       }
@@ -490,9 +490,9 @@
         
         if ( this.mouse.mode === eResize ) {
           thumbRight = true;
-          document.body.style.cursor='e-resize';
+          document.body.style.cursor="e-resize";
           this.mouse.hovering.outPoint = this.options.duration / this.width * (this.mouse.x+4);
-          if ( this.options.mode !== 'smartZoom' ) {
+          if ( this.options.mode !== "smartZoom" ) {
             this.mouse.hovering.popcornEvent.end = this.mouse.hovering.outPoint;
           }else{
 
@@ -500,7 +500,7 @@
             
             for( j in linkedTracks ) {
             
-              linkedTracks[j].track( 'zoom', {
+              linkedTracks[j].track( "zoom", {
                 offsetX: this.mouse.hovering.inPoint,
                 width: this.mouse.hovering.outPoint - this.mouse.hovering.inPoint
               });
@@ -508,23 +508,23 @@
           }
         }else if ( this.mouse.mode === wResize ) {
           thumbLeft = true;
-          document.body.style.cursor='w-resize';
+          document.body.style.cursor="w-resize";
             this.mouse.hovering.inPoint = this.options.duration / this.width * (this.mouse.x-4);
-            if ( this.options.mode !== 'smartZoom' ) {
+            if ( this.options.mode !== "smartZoom" ) {
               this.mouse.hovering.popcornEvent.start = this.mouse.hovering.inPoint;
             }else{
               
               linkedTracks = this.options.linkedTracks;              
               
               for( j in linkedTracks ) {
-                linkedTracks[j].track( 'zoom', {
+                linkedTracks[j].track( "zoom", {
                   offsetX: this.mouse.hovering.inPoint,
                   width: this.mouse.hovering.outPoint - this.mouse.hovering.inPoint
                 });
               }
             }
         }else if ( this.mouse.mode === drag ) {
-          document.body.style.cursor='move';
+          document.body.style.cursor="move";
           
           diff = this.mouse.hovering.outPoint - this.mouse.hovering.inPoint;
           
@@ -532,7 +532,7 @@
           this.mouse.hovering.outPoint = this.mouse.hovering.inPoint + diff;
           
                    
-          if ( this.options.mode !== 'smartZoom' ) {
+          if ( this.options.mode !== "smartZoom" ) {
             
             
             this.mouse.hovering.popcornEvent.start = this.mouse.hovering.inPoint ;
@@ -544,7 +544,7 @@
             linkedTracks = this.options.linkedTracks;              
             
             for( j in linkedTracks ) {
-              linkedTracks[j].track( 'zoom', {
+              linkedTracks[j].track( "zoom", {
                 offsetX: this.mouse.hovering.inPoint,
                 width: this.mouse.hovering.outPoint - this.mouse.hovering.inPoint
               });
@@ -628,7 +628,7 @@
           this.mouse.hovering.hovered = false;
         }
         
-        document.body.style.cursor='auto';
+        document.body.style.cursor="auto";
         
         this._draw();
       }
