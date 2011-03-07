@@ -15,10 +15,10 @@ video {
 }
 
 #ui-loading-html, #ui-export-html, #ui-start-html {
-position: absolute;
-z-index:9996;
-color:#fff;
-text-align:center;
+  position: absolute;
+  z-index:9996;
+  color:#fff;
+  text-align:center;
 } 
 
 #ui-loading-over, #ui-export-over, #ui-start-over {
