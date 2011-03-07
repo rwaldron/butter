@@ -57,7 +57,44 @@
 
 </div> 
 
-<div class="outer-west">Video player and plugins</div> 
+<div class="outer-west">
+
+  <div id="ui-panel-video" class="span-9" data-export="true">
+    <video id="video" preload="auto" autobuffer>
+      <p>Your user agent does not support the HTML5 Video element.</p> 
+    </video>   
+
+    <div id="ui-video-controls" class="span-10 last">
+      <button>
+        <span data-control="play" class="ui-icon ui-icon-play"></span>
+      </button>
+      <button>
+        <span data-control="pause" class="ui-icon ui-icon-pause"></span>
+      </button>
+      <button>
+        <span data-control="seek" data-opt="first" class="ui-icon ui-icon-seek-first"></span>
+      </button>
+      <button>
+        <span data-control="seek" data-opt="prev" class="ui-icon ui-icon-seek-prev"></span>
+      </button>
+      <button>
+        <span data-control="seek" data-opt="next" class="ui-icon ui-icon-seek-next"></span>
+      </button>
+      <button>
+        <span data-control="seek" data-opt="last" class="ui-icon ui-icon-seek-end"></span>
+      </button>
+      <input type="text" id="io-current-time" name="io-current-time" class="ui-video-property small-input text-center" value="" />
+      <button>
+        <span data-control="volume" data-opt="down" class="ui-icon ui-icon-volume-off"></span>
+      </button>
+      <button>
+        <span data-control="volume" data-opt="up" class="ui-icon ui-icon-volume-on"></span>
+      </button>            
+    </div>
+  </div>
+
+
+</div> 
 
 <div class="ui-layout-north">
   <header>
