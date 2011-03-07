@@ -59,7 +59,38 @@
 
 <div class="outer-west">Video player and plugins</div> 
 
-<div class="ui-layout-north">Header + Tools</div> 
+<div class="ui-layout-north">
+  <header>
+    <div class="span-26 last">
+      <img class="logo" src="img/video.png" title="Butter" alt="Butter Logo">
+      <input placeholder="Video Url" type="text" id="io-video-url" name="io-video-url" class="text ui-menu-entity" value="http://popcornjs.org/tryme.ogv"> 
+
+      <!-- http://popcornjs.org/tryme.ogv -->
+
+      <button class="ui-menu-controls marginleft" data-control="load" >Create New Movie</button>
+
+      <button class="ui-menuset"  data-control="">My Movies</button> 
+      <ul id="ui-user-videos" class="select-ul is-menu">
+      </ul>
+
+      <button class="ui-menuset">Layout</button> 
+      <!-- start out with a default layout in data-layout -->
+      <ul id="ui-layout" class="select-ul is-menu"  data-layout="wide">
+      </ul>
+
+      <button class="ui-menuset">Theme</button> 
+      <!-- start out with a default theme in data-theme -->
+      <ul id="ui-theme" class="select-ul is-menu" data-theme="clean">
+      </ul>
+
+      <button class="ui-menuset">Export Movie</button> 
+      <ul id="ui-export-to" class="select-ul is-menu">
+      </ul>
+    </div>
+  </header>
+</div> 
+
+
 <div class="ui-layout-south">Footer</div> 
 
 </body> 
