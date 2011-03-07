@@ -14,7 +14,7 @@ $(document).ready(function () {
   
   , north__spacing_open:  0
   , south__spacing_open:  0
-  , west__onresize:   "innerLayout.resizeAll" 
+  , west__onresize:   "outerLayout.resizeAll" 
   , resizable: false
   
   }); 
