@@ -414,7 +414,9 @@
     $("button,.ui-menu-controls").button();
     
     //  Render accordion panels
-    $(".ui-accordion-panel").accordion().css("marginTop", "-1px");
+    $(".ui-accordion-panel").accordion({
+      fillSpace:  true
+    }).css("marginTop", "-1px");
     
     //  Render menusets ( create with: button + ul ) 
     $(".ui-menuset").each( function() {

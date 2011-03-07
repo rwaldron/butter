@@ -47,11 +47,45 @@
 </head> 
 <body> 
 
+<!-- Overlay Scenes -->
+<div id="ui-loading-html" class="ui-load-ready hide">
+  <img src="img/loading.gif">
+  <p>This may take a moment if your video is loading over the internet</p>
+</div>
+<div id="ui-loading-over" class="ui-widget-overlay ui-load-ready"></div>
+
  
 <div class="outer-center">
+
+  <div class="ui-layout-north">
   
-  <div class="ui-layout-north">Workspace events</div> 
-    
+    <div id="ui-panel-preview" class="span-17 last" data-export="true">
+      <div id="flickr-container" data-plugin="flickr" class="ui-plugin-pane span-6" style="height:120px;width:220px"></div>
+      <div id="iframe-container" data-plugin="webpage" class="ui-plugin-pane span-6" style="height:120px;width:220px"></div>
+      <div id="map-container" data-plugin="googlemap" class="ui-plugin-pane span-5 last" style="height:120px;width:210px"></div>
+      <hr class="space">
+      <div id="image-container" data-plugin="image" class="ui-plugin-pane span-6" style="height:120px;width:220px"></div>
+      <div id="twitter-container" data-plugin="twitter" class="ui-plugin-pane span-6" style="height:120px;width:220px"></div>
+      <div id="wiki-container" data-plugin="wikipedia" class="ui-plugin-pane span-5 last" style="height:120px;width:210px"></div>
+      <hr class="space">
+      <div id="footnote-container" data-plugin="footnote" class="ui-plugin-pane span-17 last" style="height:52px;width:670px;"></div>  
+    </div>  
+  </div> 
+  
+  <div class="ui-layout-south">
+  
+    <div id="ui-track-editting" class="span-21">
+      <div id="ui-tracks">
+        <div id="ui-scrubber-handle">
+          <div id="ui-scrubber"></div>
+        </div>        
+        <div id="ui-tracks-time">
+          <canvas id="ui-tracks-time-canvas" width="800" height="25"></canvas>
+        </div>
+      </div>
+    </div>  
+  
+  </div>
     
 
 
@@ -94,6 +128,41 @@
   </div>
 
 
+  <div id="ui-panel-plugins" class="span-9 last">
+    <div id="ui-accordion-tools" class="ui-accordion-panel">
+
+      <h3><a href="#">Save As</a></h3>
+      <div>
+        <input placeholder="Title" type="text" id="io-video-title" name="io-video-title" class="text"  style="width:300px;" value="" />
+        <textarea placeholder="Description" id="io-video-description" style="width:300px;height:85px"  class="text"></textarea>
+        <button class="ui-menu-controls" data-control="save" >Save</button>
+        <button class="ui-menu-controls" data-control="remove" >Delete</button>
+      </div>
+
+      <h3><a href="#">Add Commands</a></h3>
+      <div>
+        <ul id="ui-plugin-select-list" class="select-ul">
+        </ul>
+      </div>
+
+      <h3><a href="#">Help</a></h3>
+      <div>
+        <ul>
+          <li>[ Shift + Click ] on a track event to Delete it.</li>
+
+          <li>[ Shift + Right or Left ] in the time display to jump to the next frame.</li>
+        </ul>
+      </div>
+      <!--
+      comingsoon ;)
+      <h3><a href="#">Data View</a></h3>
+      <div>
+        <textarea id="io-video-data" name="io-video-data" style="width:150px;height:150px"></textarea>
+      </div>
+      -->
+    </div>
+  </div>
+
 </div> 
 
 <div class="ui-layout-north">
@@ -127,6 +196,27 @@
   </header>
 </div> 
 
+<!-- Dialogs -->
+<div id="ui-track-event-editor" title="Edit Track Event">
+  <!-- reusable -->
+</div>
+<div id="ui-preview-viewer" title="">
+  <!-- reusable -->
+</div>
+<div id="ui-application-error" title="">
+  <!-- reusable -->
+</div>
+<div id="ui-start-screen" title="Your Movies:">
+  <h2>Your Movies</h2>
+  <div id="ui-project-list">
+    <ul id="ui-start-screen-list"></ul>
+  </div>
+  <hr class="space"/>
+  <h2>Create a New Movie</h2>
+  <input placeholder="Video Url" type="text" class="text ui-menu-entity" value="http://popcornjs.org/tryme.ogv"> 
+
+  <!-- http://popcornjs.org/tryme.ogv -->
+</div>
 
 <div class="ui-layout-south">Footer</div> 
 
