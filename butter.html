@@ -7,12 +7,20 @@
 
   <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon"  />     
 
+  <!--
+
+    //  TODO:
+
+    Refactor for modular CSS and JS loading & dep mgmt
+
+  -->
   <!-- Styles -->
   <link href="css/screen.css" rel="stylesheet" type="text/css" media="screen, projection">
   <link href="css/print.css" rel="stylesheet" type="text/css" media="print">
   <link href="css/Aristo/jquery-ui-1.8.5.custom.css" rel="stylesheet" type="text/css">
   <link href="css/butter.application.css" rel="stylesheet"  type="text/css" media="screen, projection">
-  <link href="ready/layout.application.css" rel="stylesheet" type="text/css" >
+  <link href="css/layout.application.css" rel="stylesheet" type="text/css" >
+  <link href="css/ui-overrides.css" rel="stylesheet" type="text/css" >
 
   <!-- Fave Libs and extensions-->    
   <script src="js/underscore.min.js"></script>
@@ -40,8 +48,8 @@
   
 
   
-  <script src="ready/jquery.layout.js"></script> 
-  <script src="ready/layout.application.js"></script> 
+  <script src="js/jquery.layout.js"></script> 
+  <script src="js/layout.application.js"></script> 
 
 
 </head> 
@@ -133,7 +141,7 @@
   <div id="ui-panel-plugins" class="span-9 last">
     <div id="ui-accordion-tools" class="ui-accordion-panel">
 
-      <h3><a href="#">Save As</a></h3>
+      <h3><a href="#">Project Details</a></h3>
       <div>
         <input placeholder="Title" type="text" id="io-video-title" name="io-video-title" class="text"  style="width:300px;" value="" />
         <textarea placeholder="Description" id="io-video-description" style="width:300px;height:85px"  class="text"></textarea>
@@ -170,14 +178,14 @@
 <div class="ui-layout-north is-header">
   <header>
     <div class="span-26 last">
-      <img class="logo" src="img/video.png" title="Butter" alt="Butter Logo">
+      <img class="logo" src="img/butterapp-stars-32x32.png" title="Butter" alt="Butter Logo">
       <input placeholder="Video Url" type="text" id="io-video-url" name="io-video-url" class="text ui-menu-entity" value="http://popcornjs.org/tryme.ogv"> 
 
       <!-- http://popcornjs.org/tryme.ogv -->
 
-      <button class="ui-menu-controls marginleft" data-control="load" >Create New Movie</button>
+      <button class="ui-menu-controls marginleft" data-control="load" >Create New Project</button>
 
-      <button class="ui-menuset"  data-control="">My Movies</button> 
+      <button class="ui-menuset"  data-control="">My Projects</button> 
       <ul id="ui-user-videos" class="select-ul is-menu">
       </ul>
 
@@ -191,7 +199,7 @@
       <ul id="ui-theme" class="select-ul is-menu" data-theme="clean">
       </ul>
 
-      <button class="ui-menuset">Export Movie</button> 
+      <button class="ui-menuset">Export Project</button> 
       <ul id="ui-export-to" class="select-ul is-menu">
       </ul>
     </div>
@@ -208,14 +216,21 @@
 <div id="ui-application-error" title="">
   <!-- reusable -->
 </div>
-<div id="ui-start-screen" title="Your Movies:">
-  <h2>Your Movies</h2>
+<div id="ui-start-screen" title="Your Projects:">
+  <h2>Your Projects</h2>
+  
   <div id="ui-project-list">
+    <hr class="clear" />
     <ul id="ui-start-screen-list"></ul>
   </div>
-  <hr class="space"/>
-  <h2>Create a New Movie</h2>
+
+  <hr class="clear" />
+  <h2>Create a New Project</h2>
   <input placeholder="Video Url" type="text" class="text ui-menu-entity" value="http://popcornjs.org/tryme.ogv"> 
+
+  <hr class="space" />
+  
+  (Enter the URL of the video to use)
 
   <!-- http://popcornjs.org/tryme.ogv -->
 </div>

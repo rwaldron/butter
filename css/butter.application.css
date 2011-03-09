@@ -267,7 +267,8 @@ h4 img {
 }
 
 input.text, input.title {
-  padding: 9px 8px 8px 8px;
+  /*padding: 9px 8px 8px 8px;*/
+  padding: 5px 8px 8px 8px;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   -o-border-radius: 3px;
@@ -296,3 +297,9 @@ input.text, input.title {
   height: 135px;
   overflow-y:scroll;
 }
+
+#io-video-url {
+  width: 290px;
+  margin-right: 3px;
+}
+
