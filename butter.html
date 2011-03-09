@@ -1,9 +1,16 @@
-<!doctype html>
-<html>
-<head> 
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-  <title>Butter</title> 
+    <!--
+      Butter
+      An authoring tool for Popcorn.js 
+      Version 0.1.1
+      
+      Developed by Bocoup on behalf of the Mozilla Foundation
+      Authors: Rick Waldron, Alistair McDonald, Boaz Sender
+    -->
 
   <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon"  />     
 
@@ -103,12 +110,12 @@
 
 <div class="outer-west">
 
-  <div id="ui-panel-video" class="span-9" data-export="true">
+  <div id="ui-panel-video" class="span-11" data-export="true">
     <video id="video" preload="auto" autobuffer>
       <p>Your user agent does not support the HTML5 Video element.</p> 
     </video>   
 
-    <div id="ui-video-controls" class="span-9 last">
+    <div id="ui-video-controls" class="span-11 last">
       <button>
         <span data-control="play" class="ui-icon ui-icon-play"></span>
       </button>
@@ -138,13 +145,13 @@
   </div>
 
 
-  <div id="ui-panel-plugins" class="span-9 last">
+  <div id="ui-panel-plugins" class="span-11 last">
     <div id="ui-accordion-tools" class="ui-accordion-panel">
 
       <h3><a href="#">Project Details</a></h3>
       <div>
-        <input placeholder="Title" type="text" id="io-video-title" name="io-video-title" class="text"  style="width:300px;" value="" />
-        <textarea placeholder="Description" id="io-video-description" style="width:300px;height:85px"  class="text"></textarea>
+        <input placeholder="Title" type="text" id="io-video-title" name="io-video-title" class="text"  style="width:388px;" value="" />
+        <textarea placeholder="Description" id="io-video-description" style="width:388px;height:85px"  class="text"></textarea>
         <button class="ui-menu-controls" data-control="save" >Save</button>
         <button class="ui-menu-controls" data-control="remove" >Delete</button>
       </div>
@@ -235,7 +242,13 @@
   <!-- http://popcornjs.org/tryme.ogv -->
 </div>
 
-<div class="ui-layout-south">Footer</div> 
+<div class="ui-layout-south">
+  <div id="ui-status-bar">Loaded</div>
+
+  <div id="ui-credits">
+      All code and content on this page are dual licensed under the MIT and GPL licenses. Popcorn.js is a <a href="http://www.drumbeat.org/webmademovies" title="Mozilla's Open Video Lab">Web Made Movies</a>, <a href="http://www.drumbeat.org/" title="Mozilla Drumbeat">Mozilla Drumbeat</a>  project, developed by <a href="http://cdot.senecac.on.ca/">CDOT</a>, <a href="http://bocoup.com">Bocoup</a> and contributors like you. This webiste is hosted by <a href="http://mediatemple.net">(mt)</a>.
+  </div>
+</div> 
 
 </body> 
 </html> 

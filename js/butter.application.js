@@ -486,20 +486,19 @@
         width: 130
       });
 
-
-      $(".ui-menuset ~ ul").hide().css({top:0, left:0 });
+      //  Hide & Set Menu Position
+      $(".ui-menuset ~ ul").hide().css({ 
+        top:0, left:0 
+      });
 
       //  Set track area widths
-
-      console.log( $trackstage.width(), $trackeditting.width() );
-
       var stageWidth = $trackstage.width() - 10;
       
       $("#ui-track-editting, #ui-tracks").width( 
         stageWidth
       );
     
-
+      //  Set Scrubber Height
       TrackEditor.setScrubberHeight();  
     
     });
