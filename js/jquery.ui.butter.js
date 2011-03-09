@@ -23,7 +23,22 @@
         x: 0, 
         y: 0
       },
-      
+			range = function(start, stop, step) {
+				var start = start || 0,
+				    stop  = stop || start || 0,
+				    step  = step || 1,
+				    len   = Math.ceil( (stop - start) / step) || 0 ,
+				    idx   = 0,
+				    range = [];
+				
+				range.length = len;
+				
+				while ( idx < len ) {
+				  range[ idx++ ] = start;
+				  start += step;
+				}
+				return range;
+			},
       styles = {
         trackEvent: {
           defaults: function( c, x, y, w, h ) {
@@ -146,7 +161,8 @@
     ////  console.log("TrackEvent",props, this);
     
     jQuery.extend(this, props);
-    
+
+    //console.log( this );
     this.parent = parent;
     this.oxl = 0;
     this.oxr = 0;
@@ -160,7 +176,8 @@
 
   TrackEvent.prototype.draw = function( thumbLeft, thumbRight ) {
     
-    
+    //e.pageX
+		//console.log( thumbLeft, thumbRight );
     
     var x   = this.xl = this.oxl + (this.parent.width / this.parent.options.duration * this.inPoint),
         rw  = this.parent.width / this.parent.options.duration * (this.outPoint-this.inPoint),
@@ -168,10 +185,16 @@
         c   = this.parent.context,
         type;
 
+		//this.xl += this.parent.element.offset().left;
+		
+		
     x = x * 100/this.parent.zoomWindow.width-(this.parent.zoomWindow.offsetX*100);
     rw = rw * 100/this.parent.zoomWindow.width;
 
     this.xr = x + rw;
+
+
+		
 
     //var mouseX = this.parent.mouseX;         
 
@@ -236,6 +259,7 @@
         context     : newCanvas( this.width, this.height ),
         scrubBar    : { position: 0, width: 3 },
         mouse       : { x: 0, y:0, down: false, lastX:0, lastY:0, mode:auto },
+        range				:	null,
         zoomWindow  : { offsetX:0, width:100 }
       });
 
@@ -393,12 +417,23 @@
       
       ////  console.log(e.clientX, e.clientY);
       ////  console.log(this.mouse.x);
-      ////  console.log(this.mouse.y);
+
+			//			console.log("this.element[0]", {
+			//				p: this.element[0].parentNode
+			//			});
+
+			//console.log( e.pageX );
+      //this.mouse.x -= e.pageX;
+      //this.mouse.y -= e.pageY;
+
+			//console.log( this.mouse.x );
+
+			this.mouse.x = this.mouse.x >= 0 && this.mouse.x || 1;
+
+      //console.log( this.mouse.x, this.mouse.y );
       
       thumbLeft = thumbRight = false;
       
-
-        
       if ( !this.mouse.down ) {
 
         //  console.log("_mousemove:scrollX", scrollX);
@@ -408,32 +443,50 @@
         //  console.log("_mousemove:this.mouse", this.mouse);        
 
         ////  console.log( "_mousemove:!this.mouse.down",  );
-        
+
+        //console.log( this.element.offset().left );
         
         this.mouse.hovering = null;
-      
-        for( ; i< len; i++ ) {
+        
+        for( ; i < len; i++ ) {
           
           iv = this._inView[i];
+
+          iv.xl += this.element.offset().left;
+          iv.xr += this.element.offset().left;
+
+					this.range = range( Math.floor(iv.xl) , Math.floor(iv.xr) );
+
+					//console.log( this.range );
           
-          if ( iv.xl <= this.mouse.x && iv.xr >= this.mouse.x ) {
+          //if ( iv.xl <= this.mouse.x && iv.xr >= this.mouse.x ) {
+          if ( this.range.indexOf( this.mouse.x ) != -1 ) {
+
+						//console.log( "iv.xl <= this.mouse.x && iv.xr >= this.mouse.x", this.mouse.x, iv.xl , iv.xr );
+          	
             if ( !iv.hovered ) {
               iv.hovered = true;
-              this.mouse.hovering = iv;
             }
+            
             this.mouse.hovering = iv;
+
             this.mouse.hovering.grabX = this.mouse.x - this.mouse.hovering.xl + 1;
             
             if ( this.mouse.x >= iv.xl && this.mouse.x <= iv.xl + 8 ) {
+
               document.body.style.cursor="w-resize";
               thumbLeft = true;
-            }else if ( this.mouse.x >= iv.xr-8 && this.mouse.x <= iv.xr ) {
+              
+            } else if ( this.mouse.x >= iv.xr-8 && this.mouse.x <= iv.xr ) {
               document.body.style.cursor="e-resize";
               thumbRight = true;
-            }else{
+            } else {
               document.body.style.cursor="move";
             }
-          }else{
+            
+          } else {
+
+          	//console.log( "wtf" );
             if ( iv.hovered ) {
               iv.hovered = false;
               this.mouse.hovering = null;
@@ -449,6 +502,10 @@
       }
       
       iv = this.mouse.hovering;
+
+      iv.xl += this.element.offset().left;
+      iv.xr += this.element.offset().left;
+      
 
       if ( this.mouse.down ) {
               
@@ -500,12 +557,15 @@
           if ( this.mouse.lastX  > this.mouse.hovering.xr && this.mouse.mode === 101 ) {
             cancelDrag = false;    
           }
-          
+
+
+          /*
           if ( cancelDrag ) {
             this._draw(thumbLeft, thumbRight);
             
             return;
           }
+          */
         }
         
         
@@ -515,7 +575,7 @@
           this.mouse.hovering.outPoint = this.options.duration / this.width * (this.mouse.x+4);
           if ( this.options.mode !== "smartZoom" ) {
             this.mouse.hovering.popcornEvent.end = this.mouse.hovering.outPoint;
-          }else{
+          } else {
 
             linkedTracks = this.options.linkedTracks;              
             
@@ -527,13 +587,13 @@
               });
             }
           }
-        }else if ( this.mouse.mode === wResize ) {
+        } else if ( this.mouse.mode === wResize ) {
           thumbLeft = true;
           document.body.style.cursor="w-resize";
             this.mouse.hovering.inPoint = this.options.duration / this.width * (this.mouse.x-4);
             if ( this.options.mode !== "smartZoom" ) {
               this.mouse.hovering.popcornEvent.start = this.mouse.hovering.inPoint;
-            }else{
+            } else {
               
               linkedTracks = this.options.linkedTracks;              
               
@@ -544,7 +604,7 @@
                 });
               }
             }
-        }else if ( this.mouse.mode === drag ) {
+        } else if ( this.mouse.mode === drag ) {
           document.body.style.cursor="move";
           
           diff = this.mouse.hovering.outPoint - this.mouse.hovering.inPoint;
@@ -588,17 +648,12 @@
       
       if ( event.type === "mousedown" ) {
         
-        
         this.mouse.down = true;
         
-        
         $.extend( lastMouseDown, { x: event.pageX, y: event.pageY });
-        
-        
+
         return;
       }
-      
-      
       
       if ( event.type === "mouseup" ) {
       
@@ -645,42 +700,18 @@
       }
       
       if ( event.type === "mouseleave" ) {
-      
+
         if ( this.mouse.hovering ) {
         
-         //  //  console.log( "_hover:mouseleave", "this.mouse.hovering", this.mouse.hovering );
-        
+					//  //  console.log( "_hover:mouseleave", "this.mouse.hovering", this.mouse.hovering );
           this.mouse.hovering.hovered = false;
-        
         }
         
         document.body.style.cursor="auto";
         
         this._draw();
       }
-    },
-
-    myPublicMethod: function( ) {
-    },
-
-    _setOption: function( ) {
-    },
-
-    destroy: function( ) {
-    },
-
-    option: function( ) {
-    },
-
-    setData: function( ) {
-    },
-
-    enable: function( ) {
-    },
-
-    disable: function( ) {
     }
-
   });
 
 
