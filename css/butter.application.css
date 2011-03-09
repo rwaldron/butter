@@ -201,8 +201,9 @@ canvas{
 }
 
 
-#ui-video-editor{
+#ui-video-editor {
 height: 330px;
+background: #DDD;
 }
 
 

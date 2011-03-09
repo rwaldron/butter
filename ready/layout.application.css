@@ -24,11 +24,15 @@
 
 .outer-west ,
 .outer-east {
-  background-color: #EEE;
+  background-color: #DDD;
 }
 .middle-west ,
 .middle-east {
   background-color: #F8F8F8;
+}
+
+.is-header {
+  background: rgb(204,204,204);
 }
 
 .ui-layout-resizer { /* all 'resizer-bars' */ 
@@ -56,4 +60,9 @@
   /* center pane that are 'containers' for a nested layout */ 
   padding: 0; 
   border: 0; 
+  background: #DDD;
 } 
+
+body {
+background: #DDD;
+}
