@@ -336,8 +336,6 @@
     mov: 'video/mp4', 
     m4v: 'video/mp4; codecs="avc1.42E01E, mp4a.40.2"', 
     
-    
-    
     accepts: [ ".ogv", ".mp4", ".mov", ".webm", ".m4v" ]
   }, 
   
@@ -363,6 +361,7 @@
         $editor = $("#ui-track-event-editor"),
         
         $trackeditting = $("#ui-track-editting"), 
+        $trackstage = $trackeditting.parent(),
         $uitracks = $("#ui-tracks"), 
         $tracktime = $("#ui-tracks-time"), 
         $scrubberHandle = $("#ui-scrubber-handle"),
@@ -425,14 +424,10 @@
       $(this)
         .next("ul")
           .menu({      
-
             select: function(event, ui) {
-              
               $(this).hide();
-              
             },
             input: $(this)      
-
           })
           .css({
             position: "absolute", 
@@ -493,9 +488,19 @@
 
 
       $(".ui-menuset ~ ul").hide().css({top:0, left:0 });
+
+      //  Set track area widths
+
+      console.log( $trackstage.width(), $trackeditting.width() );
+
+      var stageWidth = $trackstage.width() - 10;
+      
+      $("#ui-track-editting, #ui-tracks").width( 
+        stageWidth
+      );
     
 
-      TrackEditor.setScrubberHeight();
+      TrackEditor.setScrubberHeight();  
     
     });
     
@@ -1061,6 +1066,7 @@
         
         
           //TrackEditor.timeLineWidth = Math.ceil( Math.ceil( duration ) / 30 ) * 800;
+          //TrackEditor.timeLineWidth = Math.ceil( Math.ceil( duration ) / 30 ) * 1600;
           TrackEditor.timeLineWidth = Math.ceil( Math.ceil( duration ) / 30 ) * 1600;
           
           
@@ -2548,9 +2554,6 @@
         
         $scrubberHandle.css("left", ( $scrubberHandle.position().left + 4 ) + "px");
         
-        //console.log($scrubberHandle.position().left, $scrubberHandle.css("left"));
-        //console.log("fix the fucking position");
-      
       }, 100);
       
     });
@@ -2599,7 +2602,6 @@
       if ( event.which === 39 && event.shiftKey ) {
         $('[data-opt="next"]').parents("button").trigger("click");
       }
-      
       
       //  Arrow left
       if ( event.which === 37 && event.shiftKey ) {

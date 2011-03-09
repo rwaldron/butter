@@ -206,12 +206,9 @@ height: 330px;
 background: #DDD;
 }
 
-
 #ui-video-controls .ui-button-text-only .ui-button-text {
-padding: 3px 5px;
+  padding: 3px 5px;
 }
-
-
 
 /* garbage, needs help */
 
@@ -239,7 +236,7 @@ text-align:center;
 
 .medium {font-size:1.2em;line-height:1.25em;margin-bottom:1em;}
 
-.marginleft{
+.marginleft {
   margin-left:5px;
 }
 
