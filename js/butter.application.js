@@ -816,7 +816,8 @@
             
             //  Check for existing elements inside the plugin panes
             if ( $plugins.children().length ) {
-              $plugins.children().remove();
+              //$plugins.children().remove();
+              $plugins.parent().remove();
             }
             
             
