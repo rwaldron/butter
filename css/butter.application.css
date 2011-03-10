@@ -168,9 +168,10 @@ canvas{
 
 
 .ui-plugin-pane {
-  float: left;
-  height: 180px; 
-  background: #EEE;
+  /*float: left;
+  background: #EEE;*/
+	width: 100%; 
+	height: 100%; 
   overflow: auto;
 }
 
@@ -316,3 +317,19 @@ input.text, input.title {
 #ui-panel-plugins {
   margin-top:-5px;
 }
+
+
+.sortable { 
+	list-style-type: none; 
+	margin: 0; 
+	padding: 0; 
+}
+.sortable li { 
+	margin: 3px 3px 3px 0; 
+	padding: 1px; 
+	float: left; 
+  background: #EEE;
+	width: 220px; 
+	height: 120px; 
+}
+

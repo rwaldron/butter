@@ -494,7 +494,7 @@
       //  Set track area widths
       var stageWidth = $trackstage.width() - 10;
       
-      $("#ui-track-editting, #ui-tracks").width( 
+      $("#ui-track-editting, #ui-tracks, #ui-panel-preview").width( 
         stageWidth
       );
     
@@ -649,7 +649,6 @@
     
     
     //  TrackEditor Module - organizes all track event editting logic
-
     TrackEditor = ( function(global) {
       
       return {
@@ -1212,6 +1211,17 @@
           }
 
         },
+
+        enforceTarget: function( plugin ) {
+
+					if ( !$("#" + plugin + "-container").length ) {
+
+						$("#ui-panel-preview .sortable").append("<li><div data-plugin="+ plugin +" id='"+ plugin +"-container'></div></li>");
+
+						$("#"+ plugin +"-container").addClass("ui-widget-content ui-plugin-pane").parent().resizable();
+
+					}
+        },
         
         addTrackEvent: function( type ) {
           
@@ -1224,6 +1234,8 @@
 
             return;
           }
+
+          TrackEvents.enforceTarget( this.id );
           
           var $track, lastEventId, trackEvents, trackEvent, settings = {}, 
               trackType = this.id, 
@@ -2350,13 +2362,13 @@
     
     // ^^^^^^^^^^^^^^^^^^^ THIS IS THE WORST CODE EVER.
     
-    
-    
+    $("#ui-panel-preview .sortable").sortable();
+
     
     //  Plugin list event
     $pluginSelectList.delegate( "li", "click", function( event ) {
 
-      TrackEvents.addTrackEvent.call(this, event);
+      TrackEvents.addTrackEvent.call( this, event );
 
     });
     
@@ -2513,12 +2525,9 @@
           increment = Math.round( $("#ui-tracks-time-canvas").innerWidth() / $popcorn.video.duration ), 
           quarterTime = _( event.offsetX / increment ).fourth();
       
-      
       $popcorn.video.currentTime = quarterTime;
       
-      
       $uitracks.trigger( "scrollstop" );
-      
       
     });
 
@@ -2537,7 +2546,7 @@
           timeDistance = 0,
           quarterTime = 0;
         
-    //console.log(increment);
+    	//console.log(increment);
       //  The scrubber handle may have been moved, we must account for this
       if ( $scrubberHandle.position().left > $trackeditting.position().left ) {
 
