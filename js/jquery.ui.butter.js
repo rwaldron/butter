@@ -411,10 +411,6 @@
       ////  console.log("this.element[0].offsetLeft", this.element[0].offsetLeft);
       ////  console.log("this.element[0]", this.element[0]);
       ////  console.log("this.element[0]", { elem: this.element[0].parentNode.scrollLeft });
-      
-      this.mouse.x = e.clientX - this.element[0].offsetLeft + scrollX + this.element[0].parentNode.scrollLeft;
-      this.mouse.y = e.clientY - this.element[0].offsetTop + scrollY;
-      
       ////  console.log(e.clientX, e.clientY);
       ////  console.log(this.mouse.x);
 
@@ -428,10 +424,17 @@
 
 			//console.log( this.mouse.x );
 
+
+			//	STABLE MOUSE OVER POSITIONS
+      this.mouse.x = e.clientX - this.element[0].offsetLeft + scrollX + this.element[0].parentNode.scrollLeft;
+      this.mouse.y = e.clientY - this.element[0].offsetTop + scrollY;
+
+			//	CORRECTION TO POSITION
 			this.mouse.x = this.mouse.x >= 0 && this.mouse.x || 1;
 
+
+
       //console.log( this.mouse.x, this.mouse.y );
-      
       thumbLeft = thumbRight = false;
       
       if ( !this.mouse.down ) {
@@ -503,8 +506,8 @@
       
       iv = this.mouse.hovering;
 
-      iv.xl += this.element.offset().left;
-      iv.xr += this.element.offset().left;
+      //iv.xl += this.element.offset().left;
+      //iv.xr += this.element.offset().left;
       
 
       if ( this.mouse.down ) {
@@ -559,13 +562,13 @@
           }
 
 
-          /*
+
           if ( cancelDrag ) {
             this._draw(thumbLeft, thumbRight);
             
             return;
           }
-          */
+
         }
         
         
