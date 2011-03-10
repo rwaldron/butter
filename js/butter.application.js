@@ -77,14 +77,14 @@
     }
   });
   
-})( window, _);
+})( window, _ );
 
 
 
 (function( global, document, $, _, Popcorn ) { 
 
   //  TrackStore: Storage object constructor
-
+	//	TODO: refactor args from list to options object
   function TrackStore( title, desc, remote, theme, layout ) {
     
     this.title = title || null;
@@ -603,9 +603,6 @@
                 $li;
                 
                 
-           //console.log(projects);
-                
-            
             if ( projects ) {
 
               _.each( projects, function( data, prop ) {
@@ -711,7 +708,7 @@
           }, this);
           
           //  Ensure the video timeline is ready
-          this.videoReady($p,  onReady);
+          this.videoReady( $p,  onReady );
         },
         
         unload: {
@@ -741,8 +738,6 @@
           timescale: function() {
             TrackEditor.deleteCanvas( "ui-tracks-time", "ui-tracks-time-canvas" );            
           }
-        
-        
         }, 
         
         loadVideoFromUrl: function( callback ) {
@@ -850,8 +845,9 @@
                 TrackEditor.isScrubbing = false;
               }, 
               drag: function( event, ui ) {
-                
-                var scrubPosition = ui.offset.left  - $tracktimecanvas.position().left, 
+
+                //console.log( ui, ui.offset.left );
+                var scrubPosition = ui.position.left  - $tracktimecanvas.position().left, 
                     updateTo = $popcorn.video.duration / $tracktimecanvas.innerWidth() * scrubPosition, 
                     quarterTime = _( updateTo ).fourth();
 
@@ -860,10 +856,14 @@
                 
               }
             });
+
+						$popcorn.video.currentTime = 0;
+
+						TrackEditor.moveScrubberToPosition( 0 );
             
             //  Listen on timeupdates
             $popcorn.listen( "timeupdate", function() {
-              
+
               //  Updates the currenttime display
               $ioCurrentTime.val(function() {
 
@@ -871,9 +871,10 @@
                     prop = _( this.id.replace("io-", "") ).camel(), 
                     val = $popcorn[ prop ]();
 
-                return  formatMaps[ prop ]( _(val).fourth() ) ;
+								return  formatMaps[ prop ]( _(val).fourth() ) ;
 
               });
+
               
               if ( $popcorn.video.currentTime > 0 ) {
 
@@ -887,11 +888,18 @@
 
                   var horizIncrement = ( $uitracks.innerWidth() / 4 );
 
+
                   //if ( $popcorn.video.readyState >= 3 ) {
                   if ( $popcorn.video.readyState >= 2 ) {
 
+										//console.log( increment, quarterTime, $tracktimecanvas.position().left + 2 );
+										//console.log( ( increment * quarterTime ) + $tracktimecanvas.position().left + 2 );
+										//console.log( "loading", $tracktimecanvas.position().left, quarterTime, ( increment * quarterTime ) + $tracktimecanvas.position().left + 2 );
+										//console.log( "quarterTime", quarterTime);
+										
                     self.setScrubberPosition(  
-                      ( increment * quarterTime ) + $tracktimecanvas.position().left + 2, 
+                      //( increment * quarterTime ) + $tracktimecanvas.position().left + 2, 
+                      ( increment * quarterTime ) + $tracktimecanvas.position().left + 1, 
                       {
                         increments: increment, 
                         current: quarterTime
@@ -922,18 +930,16 @@
                         }, "slow", function () {
                           
                           quarterTime = Math.ceil( quarterTime );
-                          
+
                           self.setScrubberPosition(  
-                            ( increment * quarterTime ) + $tracktimecanvas.position().left + 2, 
+                            ( increment * quarterTime ) + $tracktimecanvas.position().left + 1,
+                            //( increment * quarterTime ) + $tracktimecanvas.position().left + 2,  
                             {
                               increments: increment, 
                               current: quarterTime
                             }
                           );                
-                        
-                        
                         }); // 600
-
                       }
                     }
 
@@ -958,8 +964,7 @@
               
             });   
             
-            
-            //  Trigger timeupdate to initialize the current time display
+						//  Trigger timeupdate to initialize the current time display
             $popcorn.trigger( "timeupdate" );
             
             
@@ -1014,6 +1019,8 @@
         
         moveScrubberToPosition: function( moveTo ) {
 
+					//console.log( moveTo, $popcorn.video.currentTime );
+					
           if ( moveTo === $("#ui-tracks-time").position().left ) {
           
             $scrubberHandle.css({
