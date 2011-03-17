@@ -15,7 +15,14 @@
   var auto    = 100,
       eResize = 101,
       wResize = 102,
-      drag    = 103, 
+      drag    = 103,
+
+      mouseModes	= {
+      	"auto" : 100,
+				"e-resize" : 101, 
+				"w-resize" : 102,
+				"drag" : 103
+      }, 
       
       trackCount = -1,
       
@@ -44,8 +51,8 @@
           defaults: function( c, x, y, w, h ) {
             //  `x` seems to come up as NaN occassionally
 
-            ////  console.log( c, x, y, w, h );
-            ////  console.log(isNaN(x));
+            ////  // // console.log( c, x, y, w, h );
+            ////  // // console.log(isNaN(x));
             if ( isNaN(x) ) {
               return;
             }      
@@ -158,11 +165,11 @@
 
   function TrackEvent( props, parent ) {
     
-    ////  console.log("TrackEvent",props, this);
+    ////  // // console.log("TrackEvent",props, this);
     
     jQuery.extend(this, props);
 
-    //console.log( this );
+    //// // console.log( this );
     this.parent = parent;
     this.oxl = 0;
     this.oxr = 0;
@@ -177,7 +184,7 @@
   TrackEvent.prototype.draw = function( thumbLeft, thumbRight ) {
     
     //e.pageX
-		//console.log( thumbLeft, thumbRight );
+		//// // console.log( thumbLeft, thumbRight );
     
     var x   = this.xl = this.oxl + (this.parent.width / this.parent.options.duration * this.inPoint),
         rw  = this.parent.width / this.parent.options.duration * (this.outPoint-this.inPoint),
@@ -254,7 +261,7 @@
       this.width = this.element.width();
       this.height = this.element.height();
 
-      ////  console.log(this.width, this.height);
+      ////  // // console.log(this.width, this.height);
       jQuery.extend(this, {
         context     : newCanvas( this.width, this.height ),
         scrubBar    : { position: 0, width: 3 },
@@ -344,7 +351,7 @@
    
     _draw: function( thumbLeft, thumbRight ) {
     
-      ////  console.log( "_draw:thumbLeft, thumbRight", thumbLeft, thumbRight );
+      ////  // // console.log( "_draw:thumbLeft, thumbRight", thumbLeft, thumbRight );
       
       jQuery(document).trigger("drawStart.track");
     
@@ -357,7 +364,7 @@
           len = this._inView.length, 
           iv;
           
-     //  //  console.log("_draw:len", len, this._inView );
+     //  //  // // console.log("_draw:len", len, this._inView );
       
       grad.addColorStop( 0,"#fff" );
       grad.addColorStop( 1,"#B6B6B6" );
@@ -384,14 +391,14 @@
 
     _timeupdate: function( e ) {
     
-      ////  console.log("timeupdate");    
+      ////  // // console.log("timeupdate");    
       this._playBar.position = e.currentTarget.currentTime;
       this._draw();
     },
 
     _mousemove: function( e ) {
       
-      ////  console.log(e);
+      ////  // // console.log(e);
       
       e = e.originalEvent;
       
@@ -399,55 +406,55 @@
       this.mouse.lastY = this.mouse.y;
       
       
-      //  console.log(global);
+      //  // // console.log(global);
       
       var scrollX = (global.scrollX !== null && typeof global.scrollX !== "undefined") ? global.scrollX : global.pageXOffset, 
           scrollY = (global.scrollY !== null && typeof global.scrollY !== "undefined") ? global.scrollY : global.pageYOffset,
           thumbLeft, thumbRight, 
           i = 0, 
           len = this._inView.length, 
-          iv, linkedTracks, j, diff;
+          iv, linkedTracks, j, diff, bounds;
       
-      ////  console.log("this.element[0].offsetLeft", this.element[0].offsetLeft);
-      ////  console.log("this.element[0]", this.element[0]);
-      ////  console.log("this.element[0]", { elem: this.element[0].parentNode.scrollLeft });
-      ////  console.log(e.clientX, e.clientY);
-      ////  console.log(this.mouse.x);
+      ////  // // console.log("this.element[0].offsetLeft", this.element[0].offsetLeft);
+      ////  // // console.log("this.element[0]", this.element[0]);
+      ////  // // console.log("this.element[0]", { elem: this.element[0].parentNode.scrollLeft });
+      ////  // // console.log(e.clientX, e.clientY);
+      ////  // // console.log(this.mouse.x);
 
-			//			console.log("this.element[0]", {
+			//			// // console.log("this.element[0]", {
 			//				p: this.element[0].parentNode
 			//			});
 
-			//console.log( e.pageX );
+			//// // console.log( e.pageX );
       //this.mouse.x -= e.pageX;
       //this.mouse.y -= e.pageY;
 
-			//console.log( this.mouse.x );
+			//// // console.log( this.mouse.x );
 
 
 			//	STABLE MOUSE OVER POSITIONS
       this.mouse.x = e.clientX - this.element[0].offsetLeft + scrollX + this.element[0].parentNode.scrollLeft;
       this.mouse.y = e.clientY - this.element[0].offsetTop + scrollY;
 
+
+      bounds = this.element[0].getBoundingClientRect();
+
 			//	CORRECTION TO POSITION
-			this.mouse.x = this.mouse.x >= 0 && this.mouse.x || 1;
+			//this.mouse.x = this.mouse.x >= 0 && this.mouse.x || 1;
 
 
+			//// // console.log( "this.element[0].getBoundingClientRect()",this.element[0].getBoundingClientRect() );
+			//// // console.log( "this.mouse.x", this.mouse.x );
 
-      //console.log( this.mouse.x, this.mouse.y );
+			
+
+
+      //// // console.log( this.mouse.x, this.mouse.y );
       thumbLeft = thumbRight = false;
       
       if ( !this.mouse.down ) {
 
-        //  console.log("_mousemove:scrollX", scrollX);
-        //  console.log("_mousemove:scrollY", scrollY);
-        //  console.log("_mousemove:thumbLeft, thumbRight", thumbLeft, thumbRight);
-
-        //  console.log("_mousemove:this.mouse", this.mouse);        
-
-        ////  console.log( "_mousemove:!this.mouse.down",  );
-
-        //console.log( this.element.offset().left );
+				// console.log( "!this.mouse.down, this.mouse.mode", this.mouse.mode );
         
         this.mouse.hovering = null;
         
@@ -455,17 +462,22 @@
           
           iv = this._inView[i];
 
-          iv.xl += this.element.offset().left;
-          iv.xr += this.element.offset().left;
+          //iv.xl += this.element.offset().left;
+          //iv.xr += this.element.offset().left;
+
+          iv.xl += bounds.left + this.element[0].parentNode.scrollLeft;
+          iv.xr += bounds.left + this.element[0].parentNode.scrollLeft;
+
+
 
 					this.range = range( Math.floor(iv.xl) , Math.floor(iv.xr) );
 
-					//console.log( this.range );
+					//// // console.log( this.range );
           
-          //if ( iv.xl <= this.mouse.x && iv.xr >= this.mouse.x ) {
-          if ( this.range.indexOf( this.mouse.x ) != -1 ) {
+          if ( iv.xl <= this.mouse.x && iv.xr >= this.mouse.x ) {
+          //if ( this.range.indexOf( this.mouse.x ) != -1 ) {
 
-						//console.log( "iv.xl <= this.mouse.x && iv.xr >= this.mouse.x", this.mouse.x, iv.xl , iv.xr );
+						//// // console.log( "iv.xl <= this.mouse.x && iv.xr >= this.mouse.x", this.mouse.x, iv.xl , iv.xr );
           	
             if ( !iv.hovered ) {
               iv.hovered = true;
@@ -481,15 +493,19 @@
               thumbLeft = true;
               
             } else if ( this.mouse.x >= iv.xr-8 && this.mouse.x <= iv.xr ) {
+
               document.body.style.cursor="e-resize";
               thumbRight = true;
+
             } else {
+
               document.body.style.cursor="move";
+
             }
             
           } else {
 
-          	//console.log( "wtf" );
+          	// console.log( "wtf" );
             if ( iv.hovered ) {
               iv.hovered = false;
               this.mouse.hovering = null;
@@ -503,14 +519,20 @@
           return;
         }
       }
+
+			//// // console.log( "continue A to: this.mouse.down", this.mouse.down );
       
       iv = this.mouse.hovering;
 
       //iv.xl += this.element.offset().left;
       //iv.xr += this.element.offset().left;
-      
+
+      //iv.xl += bounds.left + this.element[0].parentNode.scrollLeft;
+
 
       if ( this.mouse.down ) {
+
+	      //this.mouse.x -= bounds.left;
               
         if ( this.mouse.mode === auto && this.mouse.hovering ) {
           if ( this.mouse.x >= iv.xl && this.mouse.x <= iv.xl + 8 ) {
@@ -520,21 +542,24 @@
           
           } else if ( this.mouse.x >= iv.xl+8 && this.mouse.x <= iv.xr - 8 ) {
           
-            ////  console.log("this.mouse.x", this.mouse.x);
-            ////  console.log("iv", iv);
-            ////  console.log("iv.xl", iv.xl);
-            ////  console.log("dragset");
+            ////  // // console.log("this.mouse.x", this.mouse.x);
+            ////  // // console.log("iv", iv);
+            ////  // // console.log("iv.xl", iv.xl);
+            ////  // // console.log("dragset");
             
             this.mouse.mode = drag;
           }
         }
+
         
         thumbLeft = thumbRight = false;
+
+				//this.mouse.mode = mouseModes[ document.body.style.cursor ];
         
-        if ( [ eResize, wResize ].indexOf( this.mouse.mode ) > -1 ) {
+        if ( [ eResize, wResize ].indexOf( mouseModes[ document.body.style.cursor ] ) > -1 ) {
           
-          ////  console.log("dragging handles");
-          ////  console.log(this.mouse.hovering.xl, this.mouse.hovering.xr);
+          // // console.log("dragging handles");
+          ////  // // console.log(this.mouse.hovering.xl, this.mouse.hovering.xr);
           
           var cancelDrag = false;
           
@@ -547,6 +572,7 @@
 
 
           if ( this.mouse.hovering.xr - 20 < this.mouse.hovering.xl ) {
+
             this.mouse.hovering.popcornEvent.end = this.mouse.hovering.outPoint + 2 ;          
             
             cancelDrag = true;
@@ -562,6 +588,7 @@
           }
 
 
+					// // console.log( "cancelDrag", cancelDrag );
 
           if ( cancelDrag ) {
             this._draw(thumbLeft, thumbRight);
@@ -571,13 +598,26 @@
 
         }
         
+				//// // console.log( "continue B to: this.mouse.down", this.mouse.down );
+				//// // console.log( "continue to: this.mouse.mode ", this.mouse.mode );
         
         if ( this.mouse.mode === eResize ) {
+
+					// // console.log( "eResize" );
+        
           thumbRight = true;
+
           document.body.style.cursor="e-resize";
+
+					// // console.log( this.mouse.x );
+					
           this.mouse.hovering.outPoint = this.options.duration / this.width * (this.mouse.x+4);
+
           if ( this.options.mode !== "smartZoom" ) {
+
+          	// // console.log( "!smartZoom: this.mouse.hovering.outPoint ", this.mouse.hovering.outPoint );
             this.mouse.hovering.popcornEvent.end = this.mouse.hovering.outPoint;
+
           } else {
 
             linkedTracks = this.options.linkedTracks;              
@@ -590,7 +630,13 @@
               });
             }
           }
-        } else if ( this.mouse.mode === wResize ) {
+        } 
+
+
+        if ( this.mouse.mode === wResize ) {
+
+					// // console.log( "wResize" );
+        
           thumbLeft = true;
           document.body.style.cursor="w-resize";
             this.mouse.hovering.inPoint = this.options.duration / this.width * (this.mouse.x-4);
@@ -607,7 +653,11 @@
                 });
               }
             }
-        } else if ( this.mouse.mode === drag ) {
+        }
+
+        if ( this.mouse.mode === drag ) {
+
+        	// console.log( "drag" );
           document.body.style.cursor="move";
           
           diff = this.mouse.hovering.outPoint - this.mouse.hovering.inPoint;
@@ -623,7 +673,7 @@
             this.mouse.hovering.popcornEvent.end = this.mouse.hovering.outPoint ;
             
             
-          }else{
+          } else {
 
             linkedTracks = this.options.linkedTracks;              
             
@@ -639,7 +689,7 @@
 
       }
 
-      ////  console.log( this.mouse.mode, this.mouse.hovering, this.mouse.down );
+      ////  // // console.log( this.mouse.mode, this.mouse.hovering, this.mouse.down );
 
       this._draw(thumbLeft, thumbRight);
 
@@ -647,7 +697,7 @@
 
     _mouseupdown: function( event ) {
       
-     //  //  console.log( "_mouseupdown", event.type, event );
+     //  //  // // console.log( "_mouseupdown", event.type, event );
       
       if ( event.type === "mousedown" ) {
         
@@ -660,14 +710,14 @@
       
       if ( event.type === "mouseup" ) {
       
-        ////  console.log("mouseup");
+        ////  // // console.log("mouseup");
         //this.mouse.mode = auto;
         
         if ( this.mouse.hovering && this.mouse.down ) {
           
           if ( this.options.mode !== "smartZoom" ) {
             
-            ////  console.log("lastMouseDown", lastMouseDown, { x: event.pageX, y: event.pageY });
+            ////  // // console.log("lastMouseDown", lastMouseDown, { x: event.pageX, y: event.pageY });
             
             //  If mouse hasnt moved, fire edit event (will open edit dialog)
             if ( lastMouseDown.x === event.pageX ) {
@@ -691,11 +741,11 @@
 
     _hover: function( event ) {
       
-    //  //  console.log( "_hover", event.type, event );
+    //  //  // // console.log( "_hover", event.type, event );
     
       if ( event.type === "mouseenter" ) {
         
-        ////  console.log(event, this);
+        ////  // // console.log(event, this);
         
         this._draw();
         
@@ -706,7 +756,7 @@
 
         if ( this.mouse.hovering ) {
         
-					//  //  console.log( "_hover:mouseleave", "this.mouse.hovering", this.mouse.hovering );
+					//  //  // // console.log( "_hover:mouseleave", "this.mouse.hovering", this.mouse.hovering );
           this.mouse.hovering.hovered = false;
         }
         
