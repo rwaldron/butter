@@ -333,3 +333,7 @@ input.text, input.title {
 	height: 120px; 
 }
 
+
+header div {
+	width:100%
+}

@@ -498,9 +498,13 @@
         stageWidth
       );
 
+			
       
-      var heightDiff = $("#ui-accordion-tools").parent().height() - $("#ui-panel-video").height();
+      var accordionHeaders = $("#ui-accordion-tools h3.ui-accordion-header"),
+					heightDiff = $("#ui-panel-video").height() + 
+													( ( accordionHeaders.length - 1 )  * accordionHeaders.outerHeight() ) ;
 
+				
       $(".ui-accordion-panel div").height( ~+heightDiff );
     
       //  Set Scrubber Height
