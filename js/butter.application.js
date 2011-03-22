@@ -506,6 +506,10 @@
 
 				
       $(".ui-accordion-panel div").height( ~+heightDiff );
+
+      $("header div").css({
+      	width: $("header").width()
+      })
     
       //  Set Scrubber Height
       TrackEditor.setScrubberHeight();  
