@@ -84,7 +84,7 @@
 (function( global, document, $, _, Popcorn ) { 
 
   //  TrackStore: Storage object constructor
-	//	TODO: refactor args from list to options object
+  //  TODO: refactor args from list to options object
   function TrackStore( title, desc, remote, theme, layout ) {
     
     this.title = title || null;
@@ -497,17 +497,20 @@
       $("#ui-track-editting, #ui-tracks, #ui-panel-preview").width( 
         stageWidth
       );
+
+      
+      var heightDiff = $("#ui-accordion-tools").parent().height() - $("#ui-panel-video").height();
+
+      $(".ui-accordion-panel div").height( ~+heightDiff );
     
       //  Set Scrubber Height
       TrackEditor.setScrubberHeight();  
     
     });
-    
-    
+
 
     //   TrackMeta Module - define
-    
-    
+
     TrackMeta   = ( function() {
       
       return {
@@ -857,9 +860,9 @@
               }
             });
 
-						$popcorn.video.currentTime = 0;
+            $popcorn.video.currentTime = 0;
 
-						TrackEditor.moveScrubberToPosition( 0 );
+            TrackEditor.moveScrubberToPosition( 0 );
             
             //  Listen on timeupdates
             $popcorn.listen( "timeupdate", function() {
@@ -871,7 +874,7 @@
                     prop = _( this.id.replace("io-", "") ).camel(), 
                     val = $popcorn[ prop ]();
 
-								return  formatMaps[ prop ]( _(val).fourth() ) ;
+                return  formatMaps[ prop ]( _(val).fourth() ) ;
 
               });
 
@@ -892,11 +895,11 @@
                   //if ( $popcorn.video.readyState >= 3 ) {
                   if ( $popcorn.video.readyState >= 2 ) {
 
-										//console.log( increment, quarterTime, $tracktimecanvas.position().left + 2 );
-										//console.log( ( increment * quarterTime ) + $tracktimecanvas.position().left + 2 );
-										//console.log( "loading", $tracktimecanvas.position().left, quarterTime, ( increment * quarterTime ) + $tracktimecanvas.position().left + 2 );
-										//console.log( "quarterTime", quarterTime);
-										
+                    //console.log( increment, quarterTime, $tracktimecanvas.position().left + 2 );
+                    //console.log( ( increment * quarterTime ) + $tracktimecanvas.position().left + 2 );
+                    //console.log( "loading", $tracktimecanvas.position().left, quarterTime, ( increment * quarterTime ) + $tracktimecanvas.position().left + 2 );
+                    //console.log( "quarterTime", quarterTime);
+                    
                     self.setScrubberPosition(  
                       //( increment * quarterTime ) + $tracktimecanvas.position().left + 2, 
                       ( increment * quarterTime ) + $tracktimecanvas.position().left + 1, 
@@ -964,7 +967,7 @@
               
             });   
             
-						//  Trigger timeupdate to initialize the current time display
+            //  Trigger timeupdate to initialize the current time display
             $popcorn.trigger( "timeupdate" );
             
             
@@ -1019,8 +1022,8 @@
         
         moveScrubberToPosition: function( moveTo ) {
 
-					//console.log( moveTo, $popcorn.video.currentTime );
-					
+          //console.log( moveTo, $popcorn.video.currentTime );
+          
           if ( moveTo === $("#ui-tracks-time").position().left ) {
           
             $scrubberHandle.css({
@@ -1215,13 +1218,13 @@
 
         enforceTarget: function( plugin ) {
 
-					if ( !$("#" + plugin + "-container").length ) {
+          if ( !$("#" + plugin + "-container").length ) {
 
-						$("#ui-panel-preview .sortable").append("<li><div data-plugin="+ plugin +" id='"+ plugin +"-container'></div></li>");
+            $("#ui-panel-preview .sortable").append("<li><div data-plugin="+ plugin +" id='"+ plugin +"-container'></div></li>");
 
-						$("#"+ plugin +"-container").addClass("ui-widget-content ui-plugin-pane").parent().resizable();
+            $("#"+ plugin +"-container").addClass("ui-widget-content ui-plugin-pane").parent().resizable();
 
-					}
+          }
         },
         
         addTrackEvent: function( type ) {
@@ -2547,7 +2550,7 @@
           timeDistance = 0,
           quarterTime = 0;
         
-    	//console.log(increment);
+      //console.log(increment);
       //  The scrubber handle may have been moved, we must account for this
       if ( $scrubberHandle.position().left > $trackeditting.position().left ) {
 
