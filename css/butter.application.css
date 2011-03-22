@@ -177,12 +177,12 @@ canvas{
 
 .ui-accordion-panel div {
   /*height: 290px;*/
-  height:222px;
+  /*height:222px;*/
   overflow-y:scroll;
 }
 
 #ui-tools-accordion div {
-  height: 180px;
+  /*height: 180px;*/
   overflow-y:scroll;
 }
 
