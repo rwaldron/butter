@@ -502,7 +502,7 @@
       
       var accordionHeaders = $("#ui-accordion-tools h3.ui-accordion-header"),
 					heightDiff = $("#ui-panel-video").height() + 
-													( ( accordionHeaders.length - 1 )  * accordionHeaders.outerHeight() ) ;
+													( accordionHeaders.length  * accordionHeaders.outerHeight() ) ;
 
 				
       $(".ui-accordion-panel div").height( ~+heightDiff );
