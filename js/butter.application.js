@@ -498,26 +498,22 @@
         stageWidth
       );
 
-			
-      
       var $drawers = $("#ui-accordion-tools h3.ui-accordion-header"),
-      		$uiPanelPlugins = $("#ui-panel-plugins"), 
-      		outerWest = $(".outer-west").height(), 
-					heightDiff = $("#ui-panel-video").height(), 
-					headerHeight = $drawers.height();
+          $uiPanelPlugins = $("#ui-panel-plugins"), 
+          outerWest = $(".outer-west").height(), 
+          heightDiff = $("#ui-panel-video").height(), 
+          headerHeight = $drawers.height();
 
-			$uiPanelPlugins
-				.height( outerWest - heightDiff )
-					.css("margin-top", "5px");
+      $uiPanelPlugins
+        .height( outerWest - heightDiff )
+          .css("margin-top", "5px");
 
       $(".ui-accordion-panel div")
-      	.height( 
-      		outerWest - heightDiff - ( 
-      			headerHeight * ( $drawers.length + 2 ) 
-      		) 
-      	);
-
-
+        .height( 
+          outerWest - heightDiff - ( 
+            headerHeight * ( $drawers.length + 2 ) 
+          ) 
+        );
 
       //  Set Scrubber Height
       TrackEditor.setScrubberHeight();  
