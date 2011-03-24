@@ -405,7 +405,28 @@
         TrackMeta, 
         TrackEvents, 
         TrackExport;
-        
+
+    //  Handle beforeload events to prevent leaving accidentally
+    $win.bind('beforeunload', function( event ) {
+      var e = event || window.event;
+      if (e) {
+        e.returnValue = 'Are you sure you want to leave Butter?';
+      }
+      return 'Are you sure you want to leave Butter?';
+    });
+
+    //  Prevent Backspace and Delete keys from doing anything
+    //  when the target is not an <input> or a <textarea> to
+    //  prevent leaving accidentally.
+    $win.keypress( function( event ) {
+      var elem = event.srcElement || event.target;
+      var name = elem.tagName.toUpperCase();
+      if ( (event.keyCode === 46 || event.keyCode === 8) &&
+           (name !== 'INPUT' && name !== 'TEXTAREA') ) {
+        event.preventDefault();
+      }
+    });
+
     //  Start with overlay scenes hidden
     $loadready.hide();
     
