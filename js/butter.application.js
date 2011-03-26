@@ -2101,6 +2101,8 @@
       //  this is really awful
       _.each( [
           "js/jquery.js",
+          "http://popcornjs.org/code/dist/popcorn-complete.min.js",
+          /*
           "popcorn-js/popcorn.js",
           "popcorn-js/plugins/googlemap/popcorn.googlemap.js",
           "popcorn-js/plugins/footnote/popcorn.footnote.js",
@@ -2109,15 +2111,17 @@
           "popcorn-js/plugins/image/popcorn.image.js",
           "popcorn-js/plugins/wikipedia/popcorn.wikipedia.js",
           "popcorn-js/plugins/twitter/popcorn.twitter.js"
+          */
         ], function( sourceUri ) {
 
 
         // THIS IS A SERIOUS WTF WORKAROUND - THE LIVE GOOGLEMAPS PLUGIN THROWS ERRORS
         if ( /plugins/.test( sourceUri ) ) {
-          sourceUri = sourceUri.replace("plugins", "plugins-playback");
+          //sourceUri = sourceUri.replace("plugins", "plugins-playback");
         }
 
-        exports.scripts += '<script src="' + locationHref + sourceUri + '"></script>\n';
+        //exports.scripts += '<script src="' + locationHref + sourceUri + '"></script>\n';
+        exports.scripts += '<script src="' + sourceUri + '"></script>\n';
       });
 
 
@@ -2190,10 +2194,9 @@
           compile += '\n    <div class="butter-video">\n      ' + $.trim( $clone.html() ) + '\n    </div>\n  ';
         }
 
+        if ( $clone.find(".ui-plugin-pane").length ) {
 
-        if ( $clone.children(".ui-plugin-pane").length ) {
-
-          $clone.children(".ui-plugin-pane").each(function () {
+          $clone.find(".ui-plugin-pane").each(function () {
 
             var $this = $(this);
 
