@@ -85,7 +85,7 @@
 
   //  TrackStore: Storage object constructor
   //  TODO: refactor args from list to options object
-  function TrackStore( title, desc, remote, theme, layout ) {
+  function TrackStore( title, desc, remote, theme, layout, autosave ) {
 
     this.title = title || null;
     this.description = desc || null;
@@ -93,11 +93,12 @@
     this.theme = theme || null;
     this.layout = layout || null;
     this.data = null;
+    this.autosave = autosave || false;
 
     return this;
   }
 
-  TrackStore.properties = [ "title", "description", "remote", "theme", "layout" ];
+  TrackStore.properties = [ "title", "description", "remote", "theme", "layout", "autosave" ];
 
 
   //  Property getter/setter factory
@@ -404,7 +405,14 @@
         TrackEditor,
         TrackMeta,
         TrackEvents,
-        TrackExport;
+        TrackExport,
+
+        // Autosaving
+        autosaveInterval = -1,
+        autosaveIndex = 0,
+        autosaveEnabled = true, 
+        MAX_AUTOSAVES = 5,
+        AUTOSAVE_INTERVAL = 30000;
 
     //  Start with overlay scenes hidden
     $loadready.hide();
@@ -567,6 +575,22 @@
               });
 
             TrackEditor.loadVideoFromUrl( function () {
+
+              autosaveIndex = 0;
+              if ( autosaveInterval === -1 ) {
+                autosaveInterval = setInterval(controls.autosave, AUTOSAVE_INTERVAL);
+              }
+
+              if ( project.autosave ) {
+                autosaveEnabled = false;
+                $('#ui-application-error').html("<div><b>Warning:</b> Since you have opened an Autosave project, the Autosave feature is disabled until you save this project manually.</div>");
+                $uiApplicationMsg.dialog({
+                  title: "Autosave Disabled",
+                  buttons: { "Ok": function () {
+                    $uiApplicationMsg.dialog( "close" );
+                  }}
+                });
+              }
 
               TrackMeta.project.loadWorkspace( tracks );
 
@@ -1703,6 +1727,17 @@
     volumeTo = 0,
     controls = {
 
+      autosave: function() {
+        if ( autosaveEnabled ) {
+          var date = new Date();
+          var name = 'Autosave - ' + $ioVideoTitle.val() + autosaveIndex;
+
+          controls.save(name);
+
+          autosaveIndex = (autosaveIndex + 1) % MAX_AUTOSAVES;
+        } //if
+      },
+
       load: function() {
 
         seekTo = 0;
@@ -1728,7 +1763,12 @@
 
         //  If all passes, continue to load a movie from
         //  a specified URL.
-        TrackEditor.loadVideoFromUrl();
+        TrackEditor.loadVideoFromUrl(function() {
+          audosaveIndex = 0;
+          if ( autosaveInterval === -1 ) {
+            autosaveInterval = setInterval(controls.autosave, AUTOSAVE_INTERVAL);
+          }
+        });
       },
 
       remove: function() {
@@ -1753,7 +1793,7 @@
 
 
       },
-      save: function() {
+      save: function( autosaveTitle ) {
 
         if ( !$popcorn || !$popcorn.data ) {
 
@@ -1766,7 +1806,7 @@
         }
 
         var store = trackStore || new TrackStore(),
-            title = $ioVideoTitle.val(),
+            title = autosaveTitle || $ioVideoTitle.val(),
             desc = $ioVideoDesc.val(),
             remote = $ioVideoUrl.val(),
             theme = $themelist.attr( "data-theme" ),
@@ -1793,8 +1833,7 @@
         store.Remote( remote );
         store.Theme( theme );
         store.Layout( layout );
-
-
+        store.Autosave( autosaveTitle !== undefined );
 
 
         if ( !store.read( slug ) ) {
@@ -1811,17 +1850,22 @@
         }
 
 
+
         //  Reload/update menu
         TrackMeta.menu.load( "#ui-user-videos" );
 
 
-        //  Reload/update project
-        $("#ui-user-videos li[data-slug='"+ slug +"']").trigger( "click", {
+        if ( !autosaveTitle ) {
+          //  Reload/update project
+          $("#ui-user-videos li[data-slug='"+ slug +"']").trigger( "click", {
 
-          special: "Saving your project"
+            special: "Saving your project"
 
-        });
+          });
 
+          autosaveEnabled = true;
+
+        }
 
       },
 
