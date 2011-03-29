@@ -421,7 +421,8 @@
 
     $win.bind('keydown', function ( event ) {
       if ( event.which === 32 && openDialogs === 0 ) {
-        if ( event.target.tagName.toLowerCase() !== 'button') {
+        var name = event.target.tagName.toLowerCase();
+        if ( name !== 'button' && name !== 'textarea' && name !== 'input') {
           if ( $popcorn.video.paused ) {
             $popcorn.play();
           }
