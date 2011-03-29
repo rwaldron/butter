@@ -406,6 +406,32 @@
         TrackEvents,
         TrackExport;
 
+        openDialogs = 0;
+
+    
+    $doc.bind('dialogopen', function ( e ) {
+      ++openDialogs;
+    });
+
+    $doc.bind('dialogclose', function ( e ) {
+      if ( openDialogs > 0 ) { 
+        --openDialogs;
+      } //if
+    });
+
+    $win.bind('keydown', function ( event ) {
+      if ( event.which === 32 && openDialogs === 0 ) {
+        if ( event.target.tagName.toLowerCase() !== 'button') {
+          if ( $popcorn.video.paused ) {
+            $popcorn.play();
+          }
+          else {
+            $popcorn.pause();
+          }
+        }
+      }
+    });
+
     //  Start with overlay scenes hidden
     $loadready.hide();
 
