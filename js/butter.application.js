@@ -409,14 +409,15 @@
         openDialogs = 0;
 
     
-    $doc.bind("dialogopen", function ( e ) {
-      ++openDialogs;
-    });
-
-    $doc.bind("dialogclose", function ( e ) {
-      if ( openDialogs > 0 ) { 
-        --openDialogs;
-      } //if
+    $doc.bind("dialogopen dialogclose", function ( event ) {
+      if ( event.type === "dialogopen" ) {
+        ++openDialogs;
+      }
+      else {
+        if ( openDialogs > 0 ) { 
+          --openDialogs;
+        }
+      }
     });
 
     $win.bind("keydown", function ( event ) {
