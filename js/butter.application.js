@@ -583,7 +583,7 @@
 
               if ( project.autosave ) {
                 autosaveEnabled = false;
-                $('#ui-application-error').html("<div><b>Warning:</b> Since you have opened an Autosave project, the Autosave feature is disabled until you save this project manually.</div>");
+                $("#ui-application-error").html("<div><b>Warning:</b> Since you have opened an Autosave project, the Autosave feature is disabled until you save this project manually.</div>");
                 $uiApplicationMsg.dialog({
                   title: "Autosave Disabled",
                   buttons: { "Ok": function () {
@@ -1731,7 +1731,7 @@
       autosave: function() {
         if ( autosaveEnabled ) {
           var date = new Date();
-          var name = 'Autosave - ' + $ioVideoTitle.val() + autosaveIndex;
+          var name = "Autosave - " + $ioVideoTitle.val() + autosaveIndex;
 
           controls.save(name);
 
