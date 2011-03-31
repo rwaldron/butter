@@ -408,10 +408,6 @@
 
     //  Handle beforeload events to prevent leaving accidentally
     $win.bind("beforeunload", function( event ) {
-      var e = event || window.event;
-      if (e) {
-        e.returnValue = "Are you sure you want to leave Butter?";
-      }
       return "Are you sure you want to leave Butter?";
     });
 
@@ -420,9 +416,8 @@
     //  prevent leaving accidentally.
     $win.keypress( function( event ) {
       var elem = event.srcElement || event.target;
-      var name = elem.tagName.toUpperCase();
-      if ( (event.keyCode === 46 || event.keyCode === 8) &&
-           (name !== "INPUT" && name !== "TEXTAREA") ) {
+      if ( (event.which === 46 || event.which === 8) &&
+           (elem.nodeName !== "INPUT" && elem.nodeName !== "TEXTAREA") ) {
         event.preventDefault();
       }
     });
