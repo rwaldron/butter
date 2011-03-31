@@ -587,7 +587,7 @@
               .removeClass( "active" )
               .each( function( index, elem ) {
                 var $elem = $( elem );
-                if ( $elem.text().replace(/\s/g, '').toLowerCase() === project.theme ){
+                if ( $elem.text().replace(/\s/g, "").toLowerCase() === project.theme ){
                   $elem.addClass( "active" );
                   $themelist.attr( "data-theme", project.theme );
                 }
@@ -651,8 +651,9 @@
 
                 $li = $("<li/>", {
 
-                  html: '<h4><img class="icon" src="img/dummy.png">' + data.title + '</h4>',
-                  className: "select-li clickable",
+
+                  html: '<h4><img class="icon" src="img/dummy.png">' + data.title + "</h4>",
+                  className: "select-li clickable", 
                   "data-slug" : prop
 
                 }).appendTo( selector );
@@ -1132,7 +1133,7 @@
           this.drawCanvas( "ui-tracks-time", "ui-tracks-time-canvas", TrackEditor.timeLineWidth, 25 );
 
 
-          var context = document.getElementById("ui-tracks-time-canvas").getContext('2d'),
+          var context = document.getElementById("ui-tracks-time-canvas").getContext("2d"),
               tick = TrackEditor.timeLineWidth / duration,
               durationCeil = Math.ceil(duration),
               durationRange = durationCeil * 2,
@@ -1362,7 +1363,7 @@
             });
 
 
-            $track.prepend('<span class="large track-label large" >' + _( trackType ).capitalize() + '</span>');
+            $track.prepend('<span class="large track-label large" >' + _( trackType ).capitalize() + "</span>");
 
             //  Cache the track widget
             activeTracks[ trackType ] = $track;
@@ -1422,7 +1423,7 @@
                 $doc.trigger( "applicationNotice", {
 
                   message: 'Are you sure you want to remove this Track Event? <br><br> <hr class="space">' +
-                            'This action is permanent and cannot be undone.',
+                            "This action is permanent and cannot be undone.", 
 
                   callback: function () {
 
@@ -2015,11 +2016,11 @@
     //  TODO: DRYOUT LAYOUT/THEME MENU BUILDING CODE
 
     //  Render layout menu
-    $.getJSON('layouts/layouts.json', function( response ){
+    $.getJSON("layouts/layouts.json", function( response ){
       _.each( response.layouts, function ( key ) {
-        var type = key.replace(/\s/g, '').toLowerCase(),
+        var type = key.replace(/\s/g, "").toLowerCase(), 
         $li = $("<li/>", {
-          html: '<h4><img class="icon" src="img/dummy.png">' + key + '</h4>',
+          html: '<h4><img class="icon" src="img/dummy.png">' + key + "</h4>",
           className: "select-li clickable" + ( $layoutlist.attr( "data-layout" ) === type ? " active" : "")
         }).appendTo( $layoutlist );
         $li.data( "type",  type );
@@ -2027,11 +2028,11 @@
     });
 
     //  Render theme menu
-    $.getJSON('themes/themes.json', function( response ){
+    $.getJSON("themes/themes.json", function( response ){
       _.each( response.themes, function ( key ) {
-        var type = key.replace(/\s/g, '').toLowerCase(),
-        $li = $("<li/>", {
-          html: '<h4><img class="icon" src="img/dummy.png">' + key + '</h4>',
+        var type = key.replace(/\s/g, "").toLowerCase(), 
+				$li = $("<li/>", {
+          html: '<h4><img class="icon" src="img/dummy.png">' + key + "</h4>",
           className: "select-li clickable" + ( $themelist.attr( "data-theme" ) === type ? " active" : "")
         }).appendTo( $themelist );
         $li.data( "type",  type );
@@ -2043,7 +2044,7 @@
       var type = key.split(/\s/)[0].toLowerCase(),
       $li = $("<li/>", {
 
-        html: '<h4><img class="icon" src="img/' + type + '.png">' + key + '</h4>',
+        html: '<h4><img class="icon" src="img/' + type + '.png">' + key + "</h4>",
         className: "select-li clickable"
 
       }).appendTo( "#ui-export-to" );
@@ -2057,10 +2058,10 @@
       var $this = $( this );
       $this.toggleClass( "active" )
         .parents( ".is-menu" )
-        .attr('data-layout', $(this).data( "type" ) );
+        .attr("data-layout", $(this).data( "type" ) );
 
       $this.siblings()
-        .removeClass('active');
+        .removeClass("active");
     });
 
     //  Bind theme picker
@@ -2068,10 +2069,10 @@
       var $this = $( this );
       $this.toggleClass( "active" )
         .parents( ".is-menu" )
-        .attr('data-theme', $(this).data( "type" ) );
+        .attr("data-theme", $(this).data( "type" ) );
 
       $this.siblings()
-        .removeClass('active');
+        .removeClass("active");
     });
 
     //  THIS IS THE WORST CODE EVER.
@@ -2108,19 +2109,20 @@
           $exports = $('[data-export="true"]'),
           $html = $exports.filter("div"),
           exports = {
-            open: '<!doctype html>\n<html>',
-            head: '\n<head>\n',
-            meta: '<title>'+ $ioVideoTitle.val() +'</title>\n',
+            open: "<!doctype html>\n<html>",
+            head: "\n<head>\n",
+            meta: "<title>"+ $ioVideoTitle.val() +"</title>\n", 
             theme: '<link rel="stylesheet" href="' + locationHref + 'themes/' + theme + '/theme.css" type="text/css" media="screen">\n',
             layout: '<link rel="stylesheet" href="' + locationHref + 'layouts/' + layout + '/layout.css" type="text/css" media="screen">\n',
-            scripts: '',
-            body: '\n</head>\n<body>\n',
-            html: '',
-            close:'\n</body>\n</html>\n'
-          },
-          compile = '',
+            scripts: "",
+            body: "\n</head>\n<body>\n",
+            html: "", 
+            close:"\n</body>\n</html>\n"
+          }, 
+          compile = "", 
+
           playbackAry = [ '$(function () { ', '  var $p = Popcorn("#video")', '  //uncomment to auto play', '  //$p.play();', '});\n' ],
-          compiled = '',
+          compiled = "",
           stripAttrs = [ "style", "width", "height" ];
 
       //  Compile scripts
@@ -2198,8 +2200,7 @@
             width = $this.width(),
             height = $this.height(),
             $children,
-            html = '';
-
+            html = "";
         //  Remove unwanted nodes
         $clone.children("#ui-video-controls,hr").remove();
 
@@ -2383,10 +2384,9 @@
         },
         buttons: {
 
-          'Close': function() {
+          "Close": function() {
 
             $(this).dialog( "close" );
-
             $("#ui-preview-rendered").remove();
 
           }
