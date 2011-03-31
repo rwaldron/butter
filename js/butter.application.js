@@ -442,6 +442,22 @@
       }
     });
 
+    //  Handle beforeload events to prevent leaving accidentally
+    $win.bind("beforeunload", function( event ) {
+      return "Are you sure you want to leave Butter?";
+    });
+
+    //  Prevent Backspace and Delete keys from doing anything
+    //  when the target is not an <input> or a <textarea> to
+    //  prevent leaving accidentally.
+    $win.keypress( function( event ) {
+      var elem = event.srcElement || event.target;
+      if ( (event.which === 46 || event.which === 8) &&
+           (elem.nodeName !== "INPUT" && elem.nodeName !== "TEXTAREA") ) {
+        event.preventDefault();
+      }
+    });
+
     //  Start with overlay scenes hidden
     $loadready.hide();
 
