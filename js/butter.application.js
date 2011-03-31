@@ -409,20 +409,20 @@
         openDialogs = 0;
 
     
-    $doc.bind('dialogopen', function ( e ) {
+    $doc.bind("dialogopen", function ( e ) {
       ++openDialogs;
     });
 
-    $doc.bind('dialogclose', function ( e ) {
+    $doc.bind("dialogclose", function ( e ) {
       if ( openDialogs > 0 ) { 
         --openDialogs;
       } //if
     });
 
-    $win.bind('keydown', function ( event ) {
+    $win.bind("keydown", function ( event ) {
       if ( event.which === 32 && openDialogs === 0 ) {
         var name = event.target.tagName.toLowerCase();
-        if ( name !== 'button' && name !== 'textarea' && name !== 'input') {
+        if ( name !== "button" && name !== "textarea" && name !== "input") {
           if ( $popcorn.video.paused ) {
             $popcorn.play();
           }
