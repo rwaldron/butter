@@ -1306,14 +1306,21 @@
           //  Compile a starting point
           _.extend( startWith, settings, {
 
-            target: Popcorn.manifest[ trackType ].options.target
+            target: this.id + "-container"
 
           });
 
           //  Explicitly augment the starting object with all manifest props
           _.forEach( trackManifest.options, function( obj, key ) {
             if ( !( key in startWith ) ) {
-              startWith[ key ] = "";
+              // -------------------------- !! Super gross hack to see if
+              // -------------------------- !! the key labels an event handler
+              if ( key.substr(0,2) === "on" && key.charAt(2) === key.charAt(2).toUpperCase() ) {
+                startWith[ key ] = function () {};
+              }
+              else {
+                startWith[ key ] = "";
+              }
             }
           });
 
@@ -2018,16 +2025,23 @@
     $editor.css({display:"none"});
 
 
+    var PLUGIN_BLACKLIST = ['openmap', 'mustache', 'lowerthird'];
     //  Load plugins to ui-plugin-select-list
     _.each( Popcorn.registry, function( plugin, v ) {
       // TODO: convert to templates
-      var $li = $("<li/>", {
 
-        id: plugin.type,
-        className: "span-4 select-li clickable",
-        html: "<h3><img class='icon' src='img/" + plugin.type.split(/\s/)[0].toLowerCase() + ".png'> " + _( plugin.type ).capitalize() + "</h3>"
+      // adhere to blacklist
+      if ( PLUGIN_BLACKLIST.indexOf(plugin.type) === -1 ) {
 
-      }).appendTo( "#ui-plugin-select-list" );
+        var $li = $("<li/>", {
+
+          id: plugin.type,
+          className: "span-4 select-li clickable",
+          html: "<h3><img class='icon' src='img/" + plugin.type.split(/\s/)[0].toLowerCase() + ".png'> " + _( plugin.type ).capitalize() + "</h3>"
+
+        }).appendTo( "#ui-plugin-select-list" );
+
+      }
 
     });
 
@@ -2170,7 +2184,6 @@
         //exports.scripts += '<script src="' + locationHref + sourceUri + '"></script>\n';
         exports.scripts += '<script src="' + sourceUri + '"></script>\n';
       });
-
 
       //  Declare instance of the track store
       var tempStore = new TrackStore(),
