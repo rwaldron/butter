@@ -1282,7 +1282,7 @@
           //  Compile a starting point
           _.extend( startWith, settings, {
 
-            target: this.id + '-container'
+            target: this.id + "-container"
 
           });
 
@@ -1291,7 +1291,7 @@
             if ( !( key in startWith ) ) {
               // -------------------------- !! Super gross hack to see if
               // -------------------------- !! the key labels an event handler
-              if ( key.substr(0,2) === 'on' && key.charAt(2) === key.charAt(2).toUpperCase() ) {
+              if ( key.substr(0,2) === "on" && key.charAt(2) === key.charAt(2).toUpperCase() ) {
                 startWith[ key ] = function () {};
               }
               else {
