@@ -414,6 +414,34 @@
         MAX_AUTOSAVES = 5,
         AUTOSAVE_INTERVAL = 30000;
 
+        openDialogs = 0;
+
+    
+    $doc.bind("dialogopen dialogclose", function ( event ) {
+      if ( event.type === "dialogopen" ) {
+        ++openDialogs;
+      }
+      else {
+        if ( openDialogs > 0 ) { 
+          --openDialogs;
+        }
+      }
+    });
+
+    $win.bind("keydown", function ( event ) {
+      if ( event.which === 32 && openDialogs === 0 ) {
+        var name = event.target.tagName.toLowerCase();
+        if ( name !== "button" && name !== "textarea" && name !== "input") {
+          if ( $popcorn.video.paused ) {
+            $popcorn.play();
+          }
+          else {
+            $popcorn.pause();
+          }
+        }
+      }
+    });
+
     //  Start with overlay scenes hidden
     $loadready.hide();
 
