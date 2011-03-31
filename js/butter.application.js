@@ -1730,12 +1730,11 @@
 
       autosave: function() {
         if ( autosaveEnabled ) {
-          var date = new Date();
+
           var name = "Autosave - " + $ioVideoTitle.val() + autosaveIndex;
-
           controls.save(name);
-
           autosaveIndex = (autosaveIndex + 1) % MAX_AUTOSAVES;
+
         } //if
       },
 
@@ -1796,6 +1795,8 @@
       },
       save: function( autosaveTitle ) {
 
+        autosaveTitle = autosaveTitle || false;
+
         if ( !$popcorn || !$popcorn.data ) {
 
           $doc.trigger( "applicationError", {
@@ -1834,7 +1835,7 @@
         store.Remote( remote );
         store.Theme( theme );
         store.Layout( layout );
-        store.Autosave( autosaveTitle !== undefined );
+        store.Autosave( autosaveTitle );
 
 
         if ( !store.read( slug ) ) {
