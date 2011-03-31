@@ -407,12 +407,12 @@
         TrackExport;
 
     //  Handle beforeload events to prevent leaving accidentally
-    $win.bind('beforeunload', function( event ) {
+    $win.bind("beforeunload", function( event ) {
       var e = event || window.event;
       if (e) {
-        e.returnValue = 'Are you sure you want to leave Butter?';
+        e.returnValue = "Are you sure you want to leave Butter?";
       }
-      return 'Are you sure you want to leave Butter?';
+      return "Are you sure you want to leave Butter?";
     });
 
     //  Prevent Backspace and Delete keys from doing anything
@@ -422,7 +422,7 @@
       var elem = event.srcElement || event.target;
       var name = elem.tagName.toUpperCase();
       if ( (event.keyCode === 46 || event.keyCode === 8) &&
-           (name !== 'INPUT' && name !== 'TEXTAREA') ) {
+           (name !== "INPUT" && name !== "TEXTAREA") ) {
         event.preventDefault();
       }
     });
